@@ -1,25 +1,32 @@
 # Personal
 
-*Updated: YYYY-MM-DD HH:MM*
+*Updated: 2026-11-05 14:46*
 
 About the user. Iantha updates this silently as context accumulates (Rule B). No need to announce small additions.
 
 ## About
 
-(Name, role, context. Anything that shapes how Iantha frames things.)
+- Name: Titan
+- Role: Developer actively applying for junior developer roles while strengthening engineering skills.
+- Focus: Organizing daily life, building sustainable habits, and preparing for technical interviews.
 
 ## Preferences
 
-(How the user likes things — communication style, tools, food, scheduling habits, etc.)
+- Task granularity: Warn against vague tasks (e.g. "learn Go", "learn AI"). Every task must be broken down into concrete, reachable mini-goals.
+- Frameworks: Use Implementation Intentions ("I will [BEHAVIOR] at [TIME] in [LOCATION]") and Habit Stacking ("After [CURRENT HABIT], I will [NEW HABIT]") from James Clear's *Atomic Habits*.
+- Deep work boundary: Phone-free focus zone during all study and deep work sessions (see decisions.md 2026-11-05).
 
 ## Routines
 
-(Recurring patterns. Examples: "Tuesday/Thursday gym", "Sunday weekly review", "morning coffee then email".)
+- Morning (post-Subuh prayer): Strength training session (target: consistency; current: ~2 sessions/week focusing on chest and legs).
+- Morning high-energy block: Reserved for the most exhaustive, deep-focus tasks (interview prep, difficult Go concepts).
+- Low-energy / afternoon block: Low-friction tasks that don't drain energy (watching AI agent workflow videos, incremental tracking app upgrades).
 
 ## People
 
-(Family, friends, colleagues. Names, relationships, anything Iantha should remember.)
+(None tracked yet.)
 
 ## Life Context
 
-(Current life state — where they live, what they're working on broadly, anything ongoing that gives Iantha background to draw on.)
+- Final-year university student graduating in December 2026 (~1 month).
+- Currently balancing graduation wrap-up with junior software developer job applications and skill building.

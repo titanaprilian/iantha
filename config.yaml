@@ -22,5 +22,5 @@ vault_artifacts: artifacts
 # vault_raw: raw
 
 # User identity (used in daily logs, briefings)
-user_name: ""    # e.g., "Alex"
-timezone: ""     # e.g., "America/Los_Angeles" — falls back to system TZ if empty
+user_name: "Titan"    # e.g., "Alex"
+timezone: "Asia/Jakarta"     # e.g., "America/Los_Angeles" — falls back to system TZ if empty

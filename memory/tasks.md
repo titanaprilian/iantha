@@ -1,6 +1,6 @@
 # Tasks
 
-*Updated: YYYY-MM-DD HH:MM*
+*Updated: 2026-11-05 14:46*
 
 All actionable items live here. Iantha reads this every `/morning` and writes to it whenever the user mentions a time-bound action (Rule A) or completes something (Rule F).
 
@@ -10,21 +10,20 @@ All actionable items live here. Iantha reads this every `/morning` and writes to
 
 ## Work
 
-(Items related to work, projects, or professional commitments.)
+- [ ] [P1] Define concrete interview prep milestones (scope target question sets & domains)
+- [ ] [P1] Identify and submit applications for 3-5 target junior developer openings
+- [ ] Break down Go learning into first reachable mini-module (e.g. CLI tool or syntax essentials)
 
 ## Personal
 
-(Errands, life admin, personal projects.)
+- [ ] Verify university graduation checklist and clearance deadlines for December
+- [ ] Habit stack: After Subuh prayer tomorrow, put on workout clothes immediately for strength training
 
 ## Recurring
 
-(Items that repeat on a cadence. Format: `- [ ] [cadence]: description (Next due: YYYY-MM-DD)`)
-
-- [ ] Weekly: example weekly task (Next due: YYYY-MM-DD)
-- [ ] Monthly: example monthly task (Next due: YYYY-MM-DD)
+- [ ] Daily: Morning Subuh prayer followed by strength training session (Next due: 2026-11-06)
+- [ ] Daily: Morning deep work block (interview prep / Go concepts) with phone in another room (Next due: 2026-11-06)
 
 ## Archive
 
-(Completed items, organized by month. Format: `- [x] [YYYY-MM-DD] description — outcome`)
-
-### YYYY-MM
+### 2026-11
