@@ -1,6 +1,6 @@
 # Feedback
 
-*Updated: 2026-11-05 15:20*
+*Updated: 2026-11-05 16:30*
 
 Corrections and confirmed approaches the user has given Iantha. Both directions matter:
 
@@ -18,6 +18,10 @@ Each entry leads with the rule, then a `**Why**:` line and `**How to apply**:` l
 ```
 
 ---
+
+## Propose calendar time blocks in /morning and confirm before inserting
+**Why**: The user wants `/morning` to actively structure open hours into concrete calendar blocks, but needs a confirmation step to approve or adjust times before writing to Google Calendar.
+**How to apply**: In `/morning`, assemble proposed time blocks from routines and active tasks avoiding existing events, then explicitly ask the user to confirm before calling `gws calendar +insert`.
 
 ## Always push memory and skill commits to remote
 **Why**: The user wants memory changes safely backed up to their GitHub fork immediately.
