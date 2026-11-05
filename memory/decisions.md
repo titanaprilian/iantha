@@ -1,6 +1,6 @@
 # Decisions
 
-*Updated: 2026-11-05 16:20*
+*Updated: 2026-11-05 17:05*
 
 Decisions the user has made. New entries go at the top (most recent first). Each entry needs a date and a `**Why**:` line — without the why, edge cases can't be judged later.
 
@@ -14,6 +14,11 @@ Decisions the user has made. New entries go at the top (most recent first). Each
 ```
 
 ---
+
+## 2026-11-05: Human-elicited Implementation Intentions over AI generation
+**Decision**: In `/morning`, do not auto-generate implementation intentions with AI. Instead, surface open focus windows and elicit the concrete deliverable and distraction risk directly from the user, then scaffold the user's words into Google Calendar metadata.
+**Why**: Cognitive psychology research (Gollwitzer 1999, d=0.65; Slamecka & Graf 1978 Generation Effect) demonstrates that implementation intentions only trigger automated cue-response actions when actively generated and internalized by the human. AI-generated intentions lack personal commitment and are treated as passive calendar noise.
+**Notes**: Elicitation prompt targets concrete deliverable + #1 distraction risk for the day's primary focus block.
 
 ## 2026-11-05: Integrate Google Calendar via gws CLI instead of Obsidian vault
 **Decision**: Use `@googleworkspace/cli` (`gws`) with Google OAuth desktop client to manage calendar events and integrate daily schedule directly into `/morning` and `/calendar` skills.

@@ -40,31 +40,27 @@ From Google Calendar (via `gws`):
   - For tomorrow: `gws calendar +agenda --tomorrow --timezone "<timezone>" --format json`
 - Extract existing events: start time, end time, summary, and location.
 - If `gws` is not authenticated or fails, skip calendar silently without breaking the briefing.
-### 4. Build the briefing with proposed time blocks (Implementation Intentions)
+### 4. Build the briefing with open focus windows
 
-Synthesize the day using *Atomic Habits* Implementation Intentions ("I will [BEHAVIOR] at [TIME] in [LOCATION]"):
+Synthesize the day:
 1. Identify existing fixed commitments from Google Calendar to spot open windows.
-2. Translate active tasks from `tasks.md` and routines from `personal.md` into concrete, non-overlapping focus blocks. Warn against vague goals (e.g. "learn Go") by sharpening them into measurable mini-goals.
-3. Each proposed block should specify:
-   - **Time & Location**: Physical workspace / environment.
-   - **Implementation Intention / Habit Stack**: "After [ANCHOR], I will [ACTION]..." or "I will [BEHAVIOR] at [TIME] in [LOCATION]".
-   - **Boundary / Pre-condition**: e.g., Phone in another room.
+2. Map open windows to the user's natural energy rhythms from `personal.md` (e.g. post-Subuh workout, morning deep work focus block, afternoon low-energy block).
+3. Present the open windows alongside active priorities and tasks.
 
 Output a short, scannable briefing:
 
 ```
 ## Morning Briefing — YYYY-MM-DD
 
-### Calendar
+### Calendar (Fixed)
 - HH:MM - HH:MM: Existing event summary
 
-### Proposed Time Blocks (Implementation Intentions)
-- **HH:MM - HH:MM** · *[Location]*
-  - **Intention**: I will [Behavior] at [Time] in [Location].
-  - **Pre-condition / Stack**: [e.g. After Subuh prayer / Phone in another room]
-  - **Done criteria**: [Clear deliverable for this block]
+### Open Focus Windows
+- **HH:MM - HH:MM** · *[Location]* — [Anchor / Rhythm, e.g. Post-Subuh habit stack]
+- **HH:MM - HH:MM** · *[Location]* — [Deep Work: mapped to Priority #1]
+- **HH:MM - HH:MM** · *[Location]* — [Afternoon: low-friction or secondary task]
 
-### Tasks
+### Tasks Due / Active
 - [item 1]
 - [item 2]
 
@@ -75,71 +71,78 @@ Output a short, scannable briefing:
 - [priorities or things to keep in mind]
 
 ### Reminders
-- [routine rules, energy management]
+- [routine rules, e.g. phone in another room during study]
 ```
 
 Sections that are empty: omit them entirely. Don't pad.
 
-### 5. Propose & Confirm Google Calendar blocks
+### 5. Guided Elicitation (Human Internalization)
 
-Prompt the user:
-*"Would you like me to schedule these proposed time blocks onto your Google Calendar, or adjust any times?"*
+**Crucial Rule**: Never invent or fabricate the user's implementation intentions with AI. Per cognitive psychology research (Gollwitzer, 1999; Slamecka & Graf Generation Effect), implementation intentions only trigger automated action initiation if the human actively generates their own commitment and visualizes their obstacles.
 
-When the user confirms (e.g. "yes", "schedule them", "confirm", or provides adjusted times):
-Run `gws calendar +insert` for each approved block with rich metadata:
-- `--summary`: Concrete action verb + outcome (not generic "Deep Work").
-- `--location`: Physical space + boundary cue (e.g. `Study Desk (Phone in another room)`).
-- `--description`: Formatted with:
-  ```text
-  🎯 Implementation Intention:
-  I will [BEHAVIOR] at [TIME] in [LOCATION].
+Prompt the user to internalize the target block:
+> *"You have [Window, e.g. 08:30 - 11:30] open for [Top Priority]. What concrete deliverable will you lock in during this block, and what is your #1 obstacle or distraction risk?"*
 
-  ✅ Definition of Done:
-  - [Measurable outcome]
-  - [Focus boundary]
+### 6. Encode & Insert into Google Calendar
 
-  ⚡ If-Then Rule:
-  If I encounter friction or urge to context-switch, I will note it on paper and stay in the work window.
-  ```
-- Confirm the scheduled events with the user.
-### 6. Surface, don't auto-dispatch task work
+When the user responds with their target deliverable and obstacle (even in raw bullets or informal text):
+1. Scaffold their own words into the structured Implementation Intention format:
+   - `--summary`: Concrete action verb + outcome from user (e.g. `Draft 3 STAR Behavioral Stories`)
+   - `--location`: Physical workspace + boundary cue (e.g. `Study Desk (Phone in another room)`)
+   - `--description`:
+     ```text
+     🎯 Implementation Intention:
+     I will [user's behavior] at [time] at [location].
+
+     ✅ Definition of Done:
+     - [User's deliverable]
+     - [Focus boundary maintained]
+
+     ⚡ If-Then Rule:
+     If [user's obstacle/distraction occurs], I will [write it down on paper and stay in the work block].
+     ```
+2. Run `gws calendar +insert` for the confirmed block.
+3. Confirm the scheduled block to the user.
+### 7. Surface, don't auto-dispatch task work
 
 This is a planning briefing, not a work execution session. Do not start executing the tasks themselves unless the user asks.
 
-### 7. Offer task updates
+### 8. Offer task updates
 
 If the user reacts to anything in the briefing ("that's done", "move that to tomorrow", "drop that"), update `memory/tasks.md` accordingly. Confirm, commit, and push to `origin`.
 
-### 8. Optional vault write (only if `vault_dir` configured)
+### 9. Optional vault write (only if `vault_dir` configured)
 
 Offer to write the briefing to `${vault_dir}/${vault_daily}/YYYY-MM-DD.md` via `/obsidian daily-log` with section name `Briefing`. Default to "yes" if the user has confirmed once before; otherwise ask. Skip silently if `vault_dir` is unset.
+
 ## Example output
 
 ```
 ## Morning Briefing — 2026-11-06
 
-### Calendar
+### Calendar (Fixed)
 - 21:00 - 22:00: Simak Regular Meeting
 
-### Proposed Time Blocks
-- [ ] 05:30 - 06:30: Subuh & Strength Training (Habit stack: workout clothes)
-- [ ] 08:30 - 10:30: Deep Work: Interview Prep (Phone in another room)
-- [ ] 14:00 - 15:30: Go Mini-Module Breakdown
+### Open Focus Windows
+- 05:30 - 06:30 · Living Room — Post-Subuh habit stack (strength training)
+- 08:30 - 11:30 · Study Desk — Morning Deep Work (Priority #1: Interview prep / Go)
+- 14:00 - 15:30 · Study Desk — Afternoon low-friction block (Graduation checklist / App review)
 
-### Tasks
+### Tasks Due / Active
 - [ ] Verify university graduation checklist and clearance deadlines
 - [ ] Submit junior developer applications (3-5 target roles)
+- [ ] Break down Go learning into first reachable mini-module
 
 ### Watch
 - Break interview prep and Go tasks into concrete, reachable mini-goals
-- December graduation timeline
+- December graduation timeline (~1 month remaining)
 
 ### Reminders
-- Phone-free focus zone during morning deep work
+- Phone in another room during the 08:30 - 11:30 morning study session
 - Save low-friction tasks for the afternoon
 ```
 
-*Prompt: "Would you like me to schedule these proposed blocks onto your Google Calendar, or adjust any times?"*
+*Prompt: "You have 08:30 - 11:30 open for Interview Prep. What concrete deliverable will you lock in during this block, and what is your #1 distraction risk?"*
 ## Notes
 
 - Use the user's local timezone for "today" (`config.yaml: timezone` overrides system TZ)

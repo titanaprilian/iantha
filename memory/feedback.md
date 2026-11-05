@@ -1,6 +1,6 @@
 # Feedback
 
-*Updated: 2026-11-05 16:55*
+*Updated: 2026-11-05 17:05*
 
 Corrections and confirmed approaches the user has given Iantha. Both directions matter:
 
@@ -19,13 +19,9 @@ Each entry leads with the rule, then a `**Why**:` line and `**How to apply**:` l
 
 ---
 
-## Encode Implementation Intentions into Google Calendar descriptions and metadata
-**Why**: Generic calendar titles (e.g. "Deep work") lack immediate clarity on exact behavior, location, done criteria, and distraction resistance.
-**How to apply**: When proposing and scheduling time blocks in `/morning` and `/calendar`, populate the calendar event description with the exact intention ("I will [BEHAVIOR] at [TIME] in [LOCATION]"), definition of done, and if-then obstacle rule; set `--location` to the physical workspace with boundary notes; set `--summary` to concrete action + outcome.
-
-## Propose calendar time blocks in /morning and confirm before inserting
-**Why**: The user wants `/morning` to actively structure open hours into concrete calendar blocks, but needs a confirmation step to approve or adjust times before writing to Google Calendar.
-**How to apply**: In `/morning`, assemble proposed time blocks from routines and active tasks avoiding existing events, then explicitly ask the user to confirm before calling `gws calendar +insert`.
+## Elicit Implementation Intentions from the user; do not invent them with AI
+**Why**: Implementation Intentions work by heightened cue accessibility and psychological commitment (Generation Effect). AI-generated intentions are passive and fail to trigger automated action initiation.
+**How to apply**: In `/morning`, surface open focus windows and prompt the user for their concrete deliverable and primary obstacle/distraction risk. Use their words to compile the structured Google Calendar metadata and confirm before running `gws calendar +insert`.
 
 ## Always push memory and skill commits to remote
 **Why**: The user wants memory changes safely backed up to their GitHub fork immediately.
