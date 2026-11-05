@@ -4,3 +4,7 @@
 .vscode/
 .idea/
 config.local.yaml
+google-cloud-sdk/
+*.tar.gz
+__pycache__/
+*.pyc

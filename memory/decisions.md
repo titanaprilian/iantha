@@ -1,6 +1,6 @@
 # Decisions
 
-*Updated: 2026-11-05 15:20*
+*Updated: 2026-11-05 16:20*
 
 Decisions the user has made. New entries go at the top (most recent first). Each entry needs a date and a `**Why**:` line — without the why, edge cases can't be judged later.
 
@@ -14,6 +14,11 @@ Decisions the user has made. New entries go at the top (most recent first). Each
 ```
 
 ---
+
+## 2026-11-05: Integrate Google Calendar via gws CLI instead of Obsidian vault
+**Decision**: Use `@googleworkspace/cli` (`gws`) with Google OAuth desktop client to manage calendar events and integrate daily schedule directly into `/morning` and `/calendar` skills.
+**Why**: User prefers managing calendar events in Google Calendar over an Obsidian markdown vault.
+**Notes**: Auth token and client credentials stored locally in `~/.config/gws/`.
 
 ## 2026-11-05: Push to personal fork on every memory update
 **Decision**: Set remote origin to `git@github.com:titanaprilian/iantha.git` and automatically push to `origin` on every memory/skill commit.

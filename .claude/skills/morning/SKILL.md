@@ -24,7 +24,7 @@ Read `config.yaml` (and `config.local.yaml` if present, with local overriding). 
 
 If `vault_dir` is set, also read yesterday's daily note (`${vault_dir}/${vault_daily}/YYYY-MM-DD.md`) — specifically look for a `## Wrap` section (carry-over from /evening) or any "tomorrow" / "carrying over" notes. If the file doesn't exist or has no carry-over content, skip silently.
 
-### 3. Identify today's items
+### 3. Identify today's items & calendar events
 
 From `tasks.md`:
 
@@ -33,12 +33,23 @@ From `tasks.md`:
 - **Recurring due today**: items in the Recurring section whose "Next due" matches today
 - **Time-sensitive**: anything in Urgent / Time-sensitive section
 
+From Google Calendar (via `gws`):
+- If `gws` is authenticated, run:
+  ```bash
+  gws calendar +agenda --today --timezone "<timezone>" --format json
+  ```
+- Extract today's events: start time, end time, summary, and location.
+- If `gws` is not authenticated or fails, skip calendar silently without breaking the briefing.
+
 ### 4. Build the briefing
 
 Output a short, scannable briefing:
 
 ```
 ## Morning Briefing — YYYY-MM-DD
+
+### Calendar
+- HH:MM - HH:MM: Event summary
 
 ### Today
 - [item 1]
@@ -56,7 +67,7 @@ Output a short, scannable briefing:
 
 Sections that are empty: omit them entirely. Don't pad.
 
-If nothing is due today and nothing overdue, say so plainly: "Nothing on the calendar today. Want to plan something?"
+If nothing is due today, nothing overdue, and no calendar events, say so plainly: "Nothing on the calendar today. Want to plan something?"
 
 ### 5. Surface, don't dispatch
 
@@ -74,9 +85,11 @@ Offer to write the briefing to `${vault_dir}/${vault_daily}/YYYY-MM-DD.md` via `
 ```
 ## Morning Briefing — 2026-05-01
 
+### Calendar
+- 14:00 - 15:00: Coffee with Mei (Sightglass)
+
 ### Today
 - Submit LLC franchise tax payment (due today)
-- Coffee with Mei — 2pm, Sightglass
 
 ### Overdue
 - Renew passport (was due 2026-04-25)

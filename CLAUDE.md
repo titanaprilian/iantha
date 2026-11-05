@@ -38,6 +38,7 @@ In-repo skills (under `.claude/skills/`):
 | `/morning` | start of day | Briefing — what's on the plate today |
 | `/evening` | end of day | Wrap — archive done, plan tomorrow |
 | `/debrief` | end of substantive session | Capture decisions, learnings, feedback into memory |
+| `/calendar` | as needed | Google Calendar integration via `gws` (agenda, schedule events) |
 | `/obsidian` | as needed | Vault read/write primitives (no-op if `vault_dir` unset) |
 | `/housekeep` | weekly | Memory + skill audit; flag stale tasks, drift, vault clutter |
 | `/consolidate-learning` | monthly or as needed | Promote skill "Learned from runs" entries into main instructions |
