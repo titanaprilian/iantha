@@ -40,12 +40,17 @@ From Google Calendar (via `gws`):
   - For tomorrow: `gws calendar +agenda --tomorrow --timezone "<timezone>" --format json`
 - Extract existing events: start time, end time, summary, and location.
 - If `gws` is not authenticated or fails, skip calendar silently without breaking the briefing.
-### 4. Build the briefing with proposed time blocks
+### 4. Build the briefing with proposed time blocks (Implementation Intentions)
 
-Synthesize the day:
-1. Identify existing fixed commitments from Google Calendar.
-2. From `personal.md` routines (e.g. morning workout, deep work focus blocks) and active tasks in `tasks.md`, construct a realistic, non-overlapping schedule for the day's open slots.
-3. Output a short, scannable briefing:
+Synthesize the day using *Atomic Habits* Implementation Intentions ("I will [BEHAVIOR] at [TIME] in [LOCATION]"):
+1. Identify existing fixed commitments from Google Calendar to spot open windows.
+2. Translate active tasks from `tasks.md` and routines from `personal.md` into concrete, non-overlapping focus blocks. Warn against vague goals (e.g. "learn Go") by sharpening them into measurable mini-goals.
+3. Each proposed block should specify:
+   - **Time & Location**: Physical workspace / environment.
+   - **Implementation Intention / Habit Stack**: "After [ANCHOR], I will [ACTION]..." or "I will [BEHAVIOR] at [TIME] in [LOCATION]".
+   - **Boundary / Pre-condition**: e.g., Phone in another room.
+
+Output a short, scannable briefing:
 
 ```
 ## Morning Briefing — YYYY-MM-DD
@@ -53,9 +58,11 @@ Synthesize the day:
 ### Calendar
 - HH:MM - HH:MM: Existing event summary
 
-### Proposed Time Blocks
-- [ ] HH:MM - HH:MM: Routine or Deep Work block (Task summary)
-- [ ] HH:MM - HH:MM: Focus block
+### Proposed Time Blocks (Implementation Intentions)
+- **HH:MM - HH:MM** · *[Location]*
+  - **Intention**: I will [Behavior] at [Time] in [Location].
+  - **Pre-condition / Stack**: [e.g. After Subuh prayer / Phone in another room]
+  - **Done criteria**: [Clear deliverable for this block]
 
 ### Tasks
 - [item 1]
@@ -68,12 +75,10 @@ Synthesize the day:
 - [priorities or things to keep in mind]
 
 ### Reminders
-- [anything from personal.md routines for today, e.g., "Phone in another room during study"]
+- [routine rules, energy management]
 ```
 
 Sections that are empty: omit them entirely. Don't pad.
-
-If nothing is due, nothing overdue, and no calendar events: suggest 1-2 focus blocks based on top priorities.
 
 ### 5. Propose & Confirm Google Calendar blocks
 
@@ -81,9 +86,22 @@ Prompt the user:
 *"Would you like me to schedule these proposed time blocks onto your Google Calendar, or adjust any times?"*
 
 When the user confirms (e.g. "yes", "schedule them", "confirm", or provides adjusted times):
-- Run `gws calendar +insert --summary "<Title>" --start "<YYYY-MM-DDTHH:MM:SS+OFFSET>" --end "<YYYY-MM-DDTHH:MM:SS+OFFSET>"` for each approved block.
-- Confirm the scheduled events with the user.
+Run `gws calendar +insert` for each approved block with rich metadata:
+- `--summary`: Concrete action verb + outcome (not generic "Deep Work").
+- `--location`: Physical space + boundary cue (e.g. `Study Desk (Phone in another room)`).
+- `--description`: Formatted with:
+  ```text
+  🎯 Implementation Intention:
+  I will [BEHAVIOR] at [TIME] in [LOCATION].
 
+  ✅ Definition of Done:
+  - [Measurable outcome]
+  - [Focus boundary]
+
+  ⚡ If-Then Rule:
+  If I encounter friction or urge to context-switch, I will note it on paper and stay in the work window.
+  ```
+- Confirm the scheduled events with the user.
 ### 6. Surface, don't auto-dispatch task work
 
 This is a planning briefing, not a work execution session. Do not start executing the tasks themselves unless the user asks.

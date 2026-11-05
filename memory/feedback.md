@@ -1,6 +1,6 @@
 # Feedback
 
-*Updated: 2026-11-05 16:30*
+*Updated: 2026-11-05 16:55*
 
 Corrections and confirmed approaches the user has given Iantha. Both directions matter:
 
@@ -18,6 +18,10 @@ Each entry leads with the rule, then a `**Why**:` line and `**How to apply**:` l
 ```
 
 ---
+
+## Encode Implementation Intentions into Google Calendar descriptions and metadata
+**Why**: Generic calendar titles (e.g. "Deep work") lack immediate clarity on exact behavior, location, done criteria, and distraction resistance.
+**How to apply**: When proposing and scheduling time blocks in `/morning` and `/calendar`, populate the calendar event description with the exact intention ("I will [BEHAVIOR] at [TIME] in [LOCATION]"), definition of done, and if-then obstacle rule; set `--location` to the physical workspace with boundary notes; set `--summary` to concrete action + outcome.
 
 ## Propose calendar time blocks in /morning and confirm before inserting
 **Why**: The user wants `/morning` to actively structure open hours into concrete calendar blocks, but needs a confirmation step to approve or adjust times before writing to Google Calendar.

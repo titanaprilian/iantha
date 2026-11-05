@@ -46,25 +46,39 @@ If an event is all-day, format without times:
 - All day: Event title
 ```
 
-### 2. Schedule an Event (`/calendar add`, "schedule X")
+### 2. Schedule an Event or Focus Block (`/calendar add`, "schedule X")
 
-When the user asks to schedule an event or focus block, insert it via `gws calendar +insert`:
+When scheduling personal focus blocks, study sessions, or habit routines, apply *Atomic Habits* **Implementation Intentions**:
+- `--summary`: Concrete action verb + outcome (avoid vague titles like "Deep Work").
+- `--location`: Physical space + boundary cue (e.g. `Study Desk (Phone in another room)`).
+- `--description`: Structured with intention, definition of done, and obstacle plan:
+  ```text
+  🎯 Implementation Intention:
+  I will [BEHAVIOR] at [TIME] in [LOCATION].
 
+  ✅ Definition of Done:
+  - [Measurable outcome / deliverable]
+  - [Boundary maintained]
+
+  ⚡ If-Then Rule:
+  If I encounter distraction or urge to context-switch, I will note it down on paper and stay in the session.
+  ```
+
+Execute via `gws calendar +insert`:
 ```bash
 gws calendar +insert \
   --summary "<title>" \
   --start "<YYYY-MM-DDTHH:MM:SS+OFFSET>" \
-  --end "<YYYY-MM-DDTHH:MM:SS+OFFSET>"
+  --end "<YYYY-MM-DDTHH:MM:SS+OFFSET>" \
+  --location "<location>" \
+  --description "<formatted description>"
 ```
 
-Optional flags:
-- `--description "<details>"`: Event notes or agenda
-- `--location "<place>"`: Location or room
-- `--meet`: Automatically attach a Google Meet link
+Additional optional flags:
+- `--meet`: Automatically attach a Google Meet link (for meetings)
 - `--attendee "<email>"`: Add participant email
 
 Confirm event details with the user after inserting (title, date/time, and Meet URL if present).
-
 ## Notes
 
 - Timezone: Read `config.yaml: timezone`. Ensure ISO 8601 strings include the correct offset.
