@@ -1,6 +1,6 @@
 # Feedback
 
-*Updated: YYYY-MM-DD HH:MM*
+*Updated: 2026-11-05 15:20*
 
 Corrections and confirmed approaches the user has given Iantha. Both directions matter:
 
@@ -19,4 +19,10 @@ Each entry leads with the rule, then a `**Why**:` line and `**How to apply**:` l
 
 ---
 
-(Entries below.)
+## Always push memory and skill commits to remote
+**Why**: The user wants memory changes safely backed up to their GitHub fork immediately.
+**How to apply**: In `/morning`, `/evening`, `/debrief`, `/setup`, and any routine memory update, run `git push origin` right after committing.
+
+## Break project tasks into specific, reachable mini-goals
+**Why**: Generic goals like "learn Go" or "learn AI" lack clear criteria for done and cause decision paralysis.
+**How to apply**: Actively warn against vague tasks; prompt for Implementation Intentions ("I will [BEHAVIOR] at [TIME] in [LOCATION]") and habit stacking from *Atomic Habits*.

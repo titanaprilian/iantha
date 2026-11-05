@@ -58,15 +58,15 @@ Include the *why* — it lets future-you judge edge cases.
 
 Apply each confirmed entry. Skip ones the user vetoes.
 
-### 6. Commit
+### 6. Commit & push
 
-Stage updated memory files and commit:
+Stage updated memory files, commit, and push:
 
 ```
 debrief: YYYY-MM-DD — N decisions, M learnings, K feedback
 ```
 
-Don't push unless the user asks.
+Push to `origin` so memory stays synced across machines.
 
 ## Notes
 

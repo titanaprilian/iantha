@@ -1,6 +1,6 @@
 # Decisions
 
-*Updated: 2026-11-05 14:46*
+*Updated: 2026-11-05 15:20*
 
 Decisions the user has made. New entries go at the top (most recent first). Each entry needs a date and a `**Why**:` line — without the why, edge cases can't be judged later.
 
@@ -14,6 +14,11 @@ Decisions the user has made. New entries go at the top (most recent first). Each
 ```
 
 ---
+
+## 2026-11-05: Push to personal fork on every memory update
+**Decision**: Set remote origin to `git@github.com:titanaprilian/iantha.git` and automatically push to `origin` on every memory/skill commit.
+**Why**: Ensures all personal context, tasks, and daily logs are backed up and synced across machines without manual git steps.
+**Notes**: Upstream template tracked at `https://github.com/kiloloop/iantha.git`.
 
 ## 2026-11-05: Phone-free study sessions
 **Decision**: No phone in the study area during deep work / study sessions; phone is kept in another room or out of reach.

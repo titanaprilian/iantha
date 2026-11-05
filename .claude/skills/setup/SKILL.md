@@ -77,13 +77,13 @@ Now that real data exists, the first-run scaffolding is dead weight — it loads
   - **Keep** the `/setup` skill itself + its Daily Ops row — it stays useful for gap-filling empty sections later.
 - On **no**: leave everything — it's harmless, and the scaffolding stays. Don't re-ask this session.
 
-### 7. Commit
+### 7. Commit & push
 
-- Stage the updated live memory files and commit:
+- Stage the updated live memory files, commit, and push:
   ```
   setup: seed memory from first-run interview
   ```
-- Don't push unless the user asks.
+- Push to `origin` so memory stays synced across machines.
 
 ## Notes
 

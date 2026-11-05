@@ -51,15 +51,15 @@ Did any pattern repeat 3+ times this session/week? Did any decision get made tha
 - If yes: propose adding to `memory/decisions.md` (with date + Why) or as a standing rule in `CLAUDE.md`.
 - Wait for user confirmation before writing.
 
-### 8. Commit
+### 8. Commit & push
 
-Stage updated memory files and commit:
+Stage updated memory files, commit, and push:
 
 ```
 evening: YYYY-MM-DD wrap — N tasks archived, M recurring rolled
 ```
 
-Don't push unless the user asks.
+Push to `origin` so memory stays synced across machines.
 
 ## Example wrap output (chat)
 

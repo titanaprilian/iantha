@@ -111,7 +111,7 @@ Activates only if `config.yaml` has `vault_dir` set. Keep `${vault_dir}/reading-
 
 - Use the user's local timezone — not UTC. `config.yaml: timezone` overrides system TZ if set.
 - Memory file timestamps: `*Updated: YYYY-MM-DD HH:MM*` format
-- Commit memory updates as you make them
+- Commit and push memory updates as you make them (push to origin)
 - Don't fabricate — if memory doesn't have something, ask, don't invent
 - Keep daily logs short (20-30 lines max)
 - Never invent commitments or facts the user didn't state

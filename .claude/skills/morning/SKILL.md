@@ -64,8 +64,7 @@ This is a briefing, not a work session. Don't start executing tasks unless the u
 
 ### 6. Offer task updates
 
-If the user reacts to anything in the briefing ("that's done", "move that to tomorrow", "drop that"), update `memory/tasks.md` accordingly. Confirm and commit.
-
+If the user reacts to anything in the briefing ("that's done", "move that to tomorrow", "drop that"), update `memory/tasks.md` accordingly. Confirm, commit, and push to `origin`.
 ### 7. Optional vault write (only if `vault_dir` configured)
 
 Offer to write the briefing to `${vault_dir}/${vault_daily}/YYYY-MM-DD.md` via `/obsidian daily-log` with section name `Briefing`. Default to "yes" if the user has confirmed once before; otherwise ask. Skip silently if `vault_dir` is unset.
