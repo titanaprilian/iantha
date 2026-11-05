@@ -2,8 +2,6 @@
 
 Iantha reads this at session start. This file is an index — full content lives in the per-topic files below.
 
-> ⚠ **First-run demo**: the live memory files start blank. tasks / personal / priorities / decisions each have a `*.md.example` **sample seed** (`.env.example` convention — the example is the sample, the bare `.md` is the user's real data). While live files are blank, build the first `/morning` from the seeds and label it as a demo; never copy sample content into live files. To fill memory for real, run **`/setup`** (a short, skippable onboarding interview). Once real data exists, offer **"delete the samples"** (see CLAUDE.md First-Run Notes), then delete this banner.
-
 ## Files
 
 | File | Purpose |

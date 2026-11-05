@@ -22,8 +22,6 @@ Read `config.yaml` (and `config.local.yaml` if present, with local overriding). 
 - `memory/personal.md` — routines and life context (only what's relevant to today)
 - `memory/decisions.md` — recent entries (last 7 days)
 
-**Fresh-clone demo**: if the live memory files are still blank templates and `memory/*.md.example` sample seeds exist, build the briefing from the seeds instead — label it plainly (*"demo from sample data — your memory is still blank"*) and invite the user to seed it for real: *"this was sample data — run `/setup` and I'll ask a few quick questions to make it yours, or just start telling me about your day."* Never copy seed content into the live files. See CLAUDE.md First-Run Notes.
-
 If `vault_dir` is set, also read yesterday's daily note (`${vault_dir}/${vault_daily}/YYYY-MM-DD.md`) — specifically look for a `## Wrap` section (carry-over from /evening) or any "tomorrow" / "carrying over" notes. If the file doesn't exist or has no carry-over content, skip silently.
 
 ### 3. Identify today's items
