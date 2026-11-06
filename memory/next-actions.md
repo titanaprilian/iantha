@@ -1,14 +1,21 @@
 # Next Actions
 
-*Updated: 2026-11-06 11:35*
+*Updated: 2026-11-06 14:22*
 
 Unblocked, physical actions grouped by context. Brackets show estimated duration and energy, not scheduled appointments. On completion, choose and link the next action for any still-active project.
 
 ## @deep-work
 
 ## @admin / @computer-light
+- [ ] **A01 · standalone** — Watch and listen to a productivity podcast or YouTube video for at least 30 minutes. [30m, low-energy]
 
 ## @offline
+- [ ] **R01 · Recurring** — Strength train using a Push/Pull/Legs rotation. 3x/week [45m, medium-energy] (Next due: 2026-11-07)
+- [ ] **R02 · Recurring** — Go jogging. 2x/week [20m, medium-energy] (Next due: 2026-11-07)
+- [ ] **A02 · standalone** — Throw the organic trash to the chicken coop. [5m, low-energy]
+- [ ] **R03 · Recurring** — Check the durian orchard every Sunday. [10m, low-energy] (Next due: 2026-11-08)
+- [ ] **R04 · Recurring** — Make yogurt every Saturday morning. [45m, medium-energy] (Next due: 2026-11-07)
+- [ ] **A03 · standalone** — Buy milk for making yogurt tomorrow. [15m, low-energy]
 
 ## @comms
 
