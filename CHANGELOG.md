@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `.claude/skills/daily-review/SKILL.md` — daily loop closure to confirm completed blocks, sweep loose thoughts to inbox, and preview tomorrow (renamed from `/evening`).
 
 ### Changed
+- Fixed Google Calendar event insertion payloads to use the API's valid `end.dateTime` field.
 
 - Renamed `/morning` to `/daily` and `/evening` to `/daily-review` to align with the timeboxed calendar workflow.
 - Streamlined memory architecture to pure GTD: pruned redundant template files (`priorities.md`, `decisions.md`, `feedback.md`, `learnings.md`) into a single `reference.md` and personal context in `personal.md`.

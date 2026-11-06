@@ -392,7 +392,7 @@ def insert_events_to_gws(schedule: list[dict[str, Any]], dry_run: bool = False) 
         payload = {
             "summary": ev["summary"],
             "start": {"dateTime": ev["start"]},
-            "end": {"end": ev["end"], "dateTime": ev["end"]},
+            "end": {"dateTime": ev["end"]},
             "location": ev.get("location", ""),
             "description": ev.get("description", ""),
             "colorId": ev.get("colorId", "1"),
