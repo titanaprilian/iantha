@@ -1,33 +1,95 @@
 ---
 name: clarify
-description: Process captured GTD inbox inputs one by one into trash, reference, someday/maybe, two-minute completion, projects with linked next actions, single actions, or waiting-for. Use when Titan says /clarify, asks to process or empty the inbox, or asks what to do with captured items.
+description: Interactive GTD clarification workflow — processes inbox items one by one. Checks if inbox is empty, prompts user to categorize each item as a small single task or a project. For projects, guides project creation and collaboratively brainstorms/recommends aligned tasks to schedule.
 ---
 
-# /clarify — Process the Inbox
+# /clarify — Process & Clarify the Inbox
 
-Turn unprocessed inputs into decisions, not a second task list. Capture happens separately under Rule A; do not pre-sort incoming ambient mentions.
+Turn raw captured inbox items into structured, actionable commitments. Helps the user decide whether an item is a single task or a multi-step project, and collaboratively recommends aligned tasks to break down projects.
 
-## 1. Prepare
+## Instructions
 
-- Read `config.yaml` (and `config.local.yaml` if present) for the user's timezone. Read `memory/inbox.md` from top to bottom, then the live GTD files plus `memory/reference.md` as needed. Preserve the raw inbox entry and its deadline until resolved. IDs are stable: allocate the next unused `P##` or `A##` by inspecting existing projects, actions, and completed history; never recycle an ID.
-- Process exactly one inbox entry at a time, in file order. Quote its original wording to Titan and ask only for missing decisions. Do not treat guesses about outcomes, owners, or due dates as facts; retain unanswered entries in the inbox. Processing may stop at any point without deleting remaining entries.
+When the user runs `/clarify`, execute the following workflow:
 
-## 2. Decide and route each entry
+---
 
-1. **Actionable?** Ask what the entry means and what a successful outcome looks like if unclear. If **no**, offer **Trash** (confirm before removing), **Reference** (file non-actionable knowledge, tool notes, or operational rules in `memory/reference.md`), or **Someday/Maybe** (append the idea to `memory/someday-maybe.md`). Do not turn an aspiration into an active commitment by default.
-2. **Under two minutes?** If actionable and the user can do the entire action now in under two minutes, prompt them to do it immediately. Remove the entry only after they confirm it is done; if deferred, continue to the appropriate next-action/waiting-for branch and keep its due date. Do not claim to have completed it for them.
-3. **More than one physical step?** If yes, elicit the project outcome/definition of done and **the first concrete, visible physical next action**. Ask for its context (`@deep-work`, `@admin` / `@computer-light`, `@offline`, `@comms`), estimated duration, and energy level. If an unblocked step exists, create `### P## — title` with `**Outcome / Done:**`, `**Status:** Active`, `**Next Action ID/Name:** A## — action` in `memory/projects.md` and `- [ ] **A## · P##** — verb + observable result. [Nm, energy]` under the matching heading in `memory/next-actions.md` in the same update. If all progress depends on someone else, instead create an **On Hold** project and a dated `waiting-for.md` entry; never create a fake next action. Keep stated deadlines.
-4. **Single action?** Elicit a physical verb and observable result, context, estimated duration and energy. For an unblocked step, append `- [ ] **A## · standalone** — action. [Nm, energy]` to the matching context in `memory/next-actions.md`, retaining any stated due date. No project is needed.
-5. **Waiting on someone?** For a delegated or externally blocked single action (or a project dependency identified in step 3), record `[YYYY-MM-DD] Task (Waiting on: Person/Entity)` in `memory/waiting-for.md`, using the date of handoff or follow-up and preserving any separate original deadline. Do not list a blocked action under an unblocked context. A project with another unblocked step can remain Active with that step and separately track the dependency.
+## 1. Inbox Emptiness Guard
 
-If an item combines multiple commitments, clarify each in turn while preserving the source entry until all parts have been routed. If a requested reference is a document rather than a lesson/decision, ask where Titan wants it stored; do not invent a reference system or store it as an action.
+Read `memory/inbox.md`. Scan the `## Unprocessed` section for active `- [ ]` entries.
 
-## 3. Close each loop
+- **If the inbox is empty** (no unprocessed `- [ ]` items):
+  Stop immediately and prompt Titan:
+  > *"Your inbox is currently empty! Add at least one task or thought to `memory/inbox.md` first (or tell me what's on your mind right now and I'll capture it) before running `/clarify`."*
+  Do not proceed with clarification.
 
-- Confirm the disposition with Titan; then remove only that processed line from `memory/inbox.md`. Keep its exact text if the decision remains open, the two-minute action is unfinished, or any part has no destination. Never silently empty the inbox or silently discard a captured worry.
-- Update `*Updated: YYYY-MM-DD HH:MM*` in the user's local timezone in every changed memory file; preserve existing entries. Confirm what was routed and what remains. Commit changed memory files and `git push origin` after updates.
-- Repeat for the next line until the inbox is empty or Titan pauses. An empty inbox is an outcome of resolved decisions, not a deletion target.
+- **If items exist**:
+  Report the count of items to process and begin clarifying them **one by one**, in file order.
 
-## Learned from runs
+---
 
-(empty — populated as the skill is used)
+## 2. Process Each Item (One by One)
+
+Quote the raw entry to Titan:
+> *"Processing: '[exact raw text]' (Deadline/Context if any)"*
+
+### Step A: Actionable Check
+Ask if this is actionable:
+- **No**:
+  - Trash (confirm with Titan before discarding)
+  - Non-actionable knowledge / tool note $\rightarrow$ append to `memory/reference.md`
+  - Someday/Maybe $\rightarrow$ append to `memory/someday-maybe.md`
+- **Under 2 minutes**:
+  - Prompt Titan to do it immediately. Mark done only when confirmed.
+
+### Step B: Single Task vs. Project
+Prompt Titan explicitly:
+> *"Is this a mere small single task, or is it a project (requires more than one step to complete)?"*
+
+---
+
+### Step C: If It's a Single Task
+1. Elicit a concrete physical action verb and observable result.
+2. Tag with:
+   - **Context**: `@deep-work`, `@admin` / `@computer-light`, `@offline`, or `@comms`
+   - **Duration & Energy**: e.g., `[30m, low-energy]`, `[50m, high-energy]`
+3. If blocked or waiting on someone $\rightarrow$ record in `memory/waiting-for.md` (`[YYYY-MM-DD] Task (Waiting on: Person/Entity)`).
+4. Otherwise $\rightarrow$ append to `memory/next-actions.md`:
+   `- [ ] **A## · standalone** — [verb + observable deliverable]. [Nm, energy]`
+
+---
+
+### Step D: If It's a Project
+1. **Define the Project**:
+   - Determine the project title and explicit **Outcome / Definition of Done**.
+   - Create an entry in `memory/projects.md`:
+     ```markdown
+     ### P## — [Project Title]
+     - **Outcome / Done:** [Concrete observable result]
+     - **Status:** Active
+     - **Next Action ID/Name:** [Will be linked to the first task below]
+     ```
+
+2. **Collect & Recommend Project Tasks**:
+   Prompt Titan for the tasks related to this project, and **proactively offer recommendations** to help break it down into clean, reachable steps:
+   > *"What immediate tasks do you see for this project?*
+   > *Here are some recommended concrete steps to consider based on your goal: [Offer 2–3 specific, physical mini-tasks with suggested contexts and 50/10 timeframes] — which of these or your own tasks should we log?"*
+
+3. **Log the Clarified Tasks**:
+   For every approved task:
+   - Assign context (`@deep-work`, `@admin`, `@offline`, `@comms`), duration, and energy.
+   - Append to `memory/next-actions.md` linked to the project:
+     `- [ ] **A## · P##** — [verb + observable deliverable]. [Nm, energy]`
+   - Ensure the first task is linked in `memory/projects.md` under `Next Action ID/Name`.
+
+---
+
+## 3. Close the Loop
+
+1. Once the disposition of the item (and all its sub-tasks if a project) is confirmed, remove only that processed line from `memory/inbox.md`.
+2. Update the `*Updated: YYYY-MM-DD HH:MM*` headers in touched files (`memory/inbox.md`, `memory/projects.md`, `memory/next-actions.md`, `memory/reference.md`).
+3. Commit and push:
+   ```bash
+   git commit -m "clarify: processed '[short summary of item]'"
+   git push origin main
+   ```
+4. Move on to the next unprocessed item, or announce that the inbox is clean.
