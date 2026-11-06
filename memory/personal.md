@@ -1,6 +1,6 @@
 # Personal
 
-*Updated: 2026-11-05 16:55*
+*Updated: 2026-11-06 13:35*
 
 About the user. Iantha updates this silently as context accumulates (Rule B). No need to announce small additions.
 
@@ -19,7 +19,7 @@ About the user. Iantha updates this silently as context accumulates (Rule B). No
 
 ## Routines
 
-- Morning (post-Subuh prayer): Strength training session (target: consistency; current: ~2 sessions/week focusing on chest and legs).
+- Morning (after Subuh prayer and using the bathroom): Physical activities, including strength training on a Push/Pull/Legs split and restarting cardio such as HIIT or long-distance running. Aim for consistency across overall physical activity, not only chest and legs.
 - Morning high-energy block: Reserved for the most exhaustive, deep-focus tasks (interview prep, difficult Go concepts).
 - Low-energy / afternoon block: Low-friction tasks that don't drain energy (watching AI agent workflow videos, incremental tracking app upgrades).
 
