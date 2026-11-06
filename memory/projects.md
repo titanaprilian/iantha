@@ -1,6 +1,6 @@
 # Projects
 
-*Updated: 2026-11-06 14:38*
+*Updated: 2026-11-06 14:41*
 
 Outcomes requiring more than one physical step. Each Active project links to an unblocked action in `next-actions.md`; replace that link when the action is completed. Put projects blocked by others On Hold and track the blocker in `waiting-for.md`.
 
@@ -8,10 +8,6 @@ Outcomes requiring more than one physical step. Each Active project links to an 
 
 Projects captured and staged from `/clarify` that await task breakdown via `/project`.
 
-### P03 — Read The Pragmatic Programming Book
-- **Outcome / Done:** Read *The Pragmatic Programmer*.
-- **Status:** Unclarified
-- **Tasks:** (Run `/project` or `/project P03` to generate concrete tasks)
 
 ### P04 — Learn maximizing AI Agents workflow
 - **Outcome / Done:** Learn AI-agent workflow practices, including the named examples.
@@ -41,6 +37,17 @@ Projects captured and staged from `/clarify` that await task breakdown via `/pro
   - A11 · Record a five-minute explanation of one project, covering its design, trade-offs, and one challenge; review it and note improvements.
   - A12 · Draft and practice concise STAR answers to five common behavioral questions.
   - A13 · Run a timed mock covering coding, project explanation, and behavioral questions; write three specific improvement actions.
+
+### P03 — Read The Pragmatic Programming Book
+- **Outcome / Done:** Finish the book and produce concise notes with at least five practices to apply to current Go or interview-preparation work.
+- **Status:** Active
+- **Next Action ID/Name:** A14 · Set up reading log
+- **Tasks:**
+  - A14 · Set up a reading log and note the book's sections; choose a comfortable reading format and place.
+  - A15 · Read the first portion of the book and record three ideas or questions in the log.
+  - A16 · Read the next portion and add three ideas or questions; note a practice relevant to Go work.
+  - A17 · Finish the book and capture key takeaways in the reading log.
+  - A18 · Choose five practices from the notes and write one concrete application for the Go project or interview preparation.
 ## On Hold
 
 ## Completed
