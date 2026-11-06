@@ -1,6 +1,6 @@
 # Next Actions
 
-*Updated: 2026-11-06 14:41*
+*Updated: 2026-11-06 14:42*
 Unblocked, physical actions grouped by context. Brackets show estimated duration and energy, not scheduled appointments. On completion, choose and link the next action for any still-active project.
 
 ## @deep-work
@@ -14,13 +14,13 @@ Unblocked, physical actions grouped by context. Brackets show estimated duration
 - [ ] **A11 · P02** — Record a five-minute explanation of one project, covering its design, trade-offs, and one challenge; review it and note improvements. [50m, medium-energy]
 - [ ] **A12 · P02** — Draft and practice concise STAR answers to five common behavioral questions. [50m, medium-energy]
 - [ ] **A13 · P02** — Run a timed mock covering coding, project explanation, and behavioral questions; write three specific improvement actions. [50m, high-energy]
-- [ ] **A14 · P03** — Set up a reading log, note the book's sections, and choose a comfortable reading format and place. [20m, low-energy]
 - [ ] **A15 · P03** — Read the first portion of the book and record three ideas or questions in the log. [50m, medium-energy]
 - [ ] **A16 · P03** — Read the next portion and add three ideas or questions; note a practice relevant to Go work. [50m, medium-energy]
 - [ ] **A17 · P03** — Finish the book and capture key takeaways in the reading log. [50m, medium-energy]
 - [ ] **A18 · P03** — Choose five practices from the notes and write one concrete application for the Go project or interview preparation. [50m, medium-energy]
 
 ## @admin / @computer-light
+- [ ] **A14 · P03** — Set up a reading log, note the book's sections, and choose a comfortable reading format and place. [20m, low-energy]
 - [ ] **A01 · standalone** — Watch and listen to a productivity podcast or YouTube video for at least 30 minutes. [30m, low-energy]
 
 ## @offline
