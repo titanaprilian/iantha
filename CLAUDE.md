@@ -36,7 +36,8 @@ In-repo skills (under `.claude/skills/`):
 | Skill | When | Purpose |
 |-------|------|---------|
 | `/initial` | onboarding or intake dump | Intake interview — captures personal context & inbox tasks, then transitions to /clarify |
-| `/clarify` | when processing the inbox | Decide each captured input's fate with the GTD decision tree; empty processed entries |
+| `/clarify` | when processing the inbox | Batch clarification — predicts tasks vs projects, routes tasks, stages projects |
+| `/project` | scoping a project | Dedicated project breakdown — refines outcome and recommends bite-sized 50/10 tasks |
 | `/daily` | start of focus | Check-in — pull today's timeboxed calendar schedule and prime workspace boundaries |
 | `/daily-review` | end of day | Review — confirm completed blocks/actions, sweep loose thoughts into inbox |
 | `/weekly-review` | weekly | 2-Step Planning — clarify inbox into tasks/projects, then timebox the week into Google Calendar |

@@ -1,11 +1,11 @@
 ---
 name: clarify
-description: Interactive GTD clarification workflow — processes inbox items one by one. Checks if inbox is empty, prompts user to categorize each item as a small single task or a project. For projects, guides project creation and collaboratively brainstorms/recommends aligned tasks to schedule.
+description: Batch GTD clarification — scans the entire inbox, predicts Task vs Project vs Routine for all items at once, prompts user for confirmation, then routes single tasks into next-actions.md and stages projects into projects.md for dedicated breakdown.
 ---
 
-# /clarify — Process & Clarify the Inbox
+# /clarify — Batch Inbox Clarification
 
-Turn raw captured inbox items into structured, actionable commitments. Helps the user decide whether an item is a single task or a multi-step project, and collaboratively recommends aligned tasks to break down projects.
+High-throughput, zero-drag inbox processing. Predicts classifications for the whole inbox in one table instead of agonizing one-by-one, routes single tasks and recurring routines immediately, and stages projects into `memory/projects.md` to be deeply broken down via `/project`.
 
 ## Instructions
 
@@ -13,83 +13,68 @@ When the user runs `/clarify`, execute the following workflow:
 
 ---
 
-## 1. Inbox Emptiness Guard
+## 1. Empty Inbox Check
 
-Read `memory/inbox.md`. Scan the `## Unprocessed` section for active `- [ ]` entries.
-
-- **If the inbox is empty** (no unprocessed `- [ ]` items):
-  Stop immediately and prompt Titan:
-  > *"Your inbox is currently empty! Add at least one task or thought to `memory/inbox.md` first (or tell me what's on your mind right now and I'll capture it) before running `/clarify`."*
-  Do not proceed with clarification.
-
-- **If items exist**:
-  Report the count of items to process and begin clarifying them **one by one**, in file order.
+Read `memory/inbox.md`. Scan `## Unprocessed` for active items.
+- If empty: Stop immediately and notify Titan to add at least one item first.
+- If items exist: Proceed to Step 2.
 
 ---
 
-## 2. Process Each Item (One by One)
+## 2. Batch Classification & Prediction
 
-Quote the raw entry to Titan:
-> *"Processing: '[exact raw text]' (Deadline/Context if any)"*
+Analyze **all** items in `memory/inbox.md` at once. Categorize each into:
+- **Single Task / Routine**: Single actionable step or repeating habit (e.g. *"Throw organic trash"*, *"Buy milk on Friday"*, *"Jogging"*). Predict context (`@deep-work`, `@admin`, `@offline`, `@comms`), duration, and energy.
+- **Project**: Multi-step outcomes requiring scoping and multiple tasks (e.g. *"Learn Basic Golang"*, *"Mock Interview Prep"*, *"Read Pragmatic Programmer"*).
+- **Someday/Maybe / Non-Actionable**: Aspirational or passive ideas.
 
-### Step A: Actionable Check
-Ask if this is actionable:
-- **No**:
-  - Trash (confirm with Titan before discarding)
-  - Non-actionable knowledge / tool note $\rightarrow$ append to `memory/reference.md`
-  - Someday/Maybe $\rightarrow$ append to `memory/someday-maybe.md`
-- **Under 2 minutes**:
-  - Prompt Titan to do it immediately. Mark done only when confirmed.
+Present the entire batch prediction as a clean table:
 
-### Step B: Single Task vs. Project
-Prompt Titan explicitly:
-> *"Is this a mere small single task, or is it a project (requires more than one step to complete)?"*
+```markdown
+### 📋 Inbox Clarification Batch (N items)
 
----
+| # | Raw Item | Type | Proposed Context / Cadence | Notes |
+|---|---|---|---|---|
+| 1 | Learn Basic Golang | 📁 Project | Multi-step | Stage for /project breakdown |
+| 2 | Throw organic trash to chicken coop | ⚡ Single Task | @offline [10m, low-energy] | Immediate action |
+| 3 | Check durian orchard every sunday | 🔄 Routine | @offline [Sunday cadence] | Recurring routine |
+| ... | ... | ... | ... | ... |
 
-### Step C: If It's a Single Task
-1. Elicit a concrete physical action verb and observable result.
-2. Tag with:
-   - **Context**: `@deep-work`, `@admin` / `@computer-light`, `@offline`, or `@comms`
-   - **Duration & Energy**: e.g., `[30m, low-energy]`, `[50m, high-energy]`
-3. If blocked or waiting on someone $\rightarrow$ record in `memory/waiting-for.md` (`[YYYY-MM-DD] Task (Waiting on: Person/Entity)`).
-4. Otherwise $\rightarrow$ append to `memory/next-actions.md`:
-   `- [ ] **A## · standalone** — [verb + observable deliverable]. [Nm, energy]`
+**Does this classification look right?** 
+Reply with:
+- **"Yes"** (or Enter) to approve all and route them immediately.
+- Or specify corrections (e.g., *"3 is a single task, not routine"*).
+```
 
 ---
 
-### Step D: If It's a Project
-1. **Define the Project**:
-   - Determine the project title and explicit **Outcome / Definition of Done**.
-   - Create an entry in `memory/projects.md`:
-     ```markdown
-     ### P## — [Project Title]
-     - **Outcome / Done:** [Concrete observable result]
-     - **Status:** Active
-     - **Next Action ID/Name:** [Will be linked to the first task below]
-     ```
+## 3. Immediate Routing
 
-2. **Collect & Recommend Project Tasks**:
-   Prompt Titan for the tasks related to this project, and **proactively offer recommendations** to help break it down into clean, reachable steps:
-   > *"What immediate tasks do you see for this project?*
-   > *Here are some recommended concrete steps to consider based on your goal: [Offer 2–3 specific, physical mini-tasks with suggested contexts and 50/10 timeframes] — which of these or your own tasks should we log?"*
+Once Titan confirms the table:
 
-3. **Log the Clarified Tasks**:
-   For every approved task:
-   - Assign context (`@deep-work`, `@admin`, `@offline`, `@comms`), duration, and energy.
-   - Append to `memory/next-actions.md` linked to the project:
-     `- [ ] **A## · P##** — [verb + observable deliverable]. [Nm, energy]`
-   - Ensure the first task is linked in `memory/projects.md` under `Next Action ID/Name`.
+### A. Projects $\rightarrow$ `memory/projects.md`
+- Append confirmed projects under `## Unclarified Projects`:
+  ```markdown
+  ### P## — [Project Title]
+  - **Outcome / Done:** [Short target outcome]
+  - **Status:** Unclarified
+  - **Tasks:** (Run `/project` or `/project P##` to generate concrete tasks)
+  ```
+- **Do not** break down projects inside `/clarify`. Keep it fast.
 
----
+### B. Single Tasks & Routines $\rightarrow$ `memory/next-actions.md`
+- Route directly into `memory/next-actions.md` under their respective context headings (`@deep-work`, `@admin`, `@offline`, `@comms`) with duration and energy tags:
+  `- [ ] **A## · standalone** — [Action]. [Nm, energy]`
+  or for routines:
+  `- [ ] **R## · Recurring** — [Routine]. [Cadence] (Next due: YYYY-MM-DD)`
 
-## 3. Close the Loop
-
-1. Once the disposition of the item (and all its sub-tasks if a project) is confirmed, remove only that processed line from `memory/inbox.md`.
-2. Update the `*Updated: YYYY-MM-DD HH:MM*` headers in touched files (`memory/inbox.md`, `memory/projects.md`, `memory/next-actions.md`, `memory/reference.md`).
-3. Commit and push:
-   ```bash
-   git commit -m "clarify: processed '[short summary of item]'"
-   git push origin main
-   ```
-4. Move on to the next unprocessed item, or announce that the inbox is clean.
+### C. Clean Inbox & Commit
+- Clear processed items from `memory/inbox.md`.
+- Update `*Updated: YYYY-MM-DD HH:MM*` on touched files.
+- Commit and push:
+  ```bash
+  git commit -m "clarify: batch processed N inbox items into tasks and projects"
+  git push origin main
+  ```
+- Print a summary and prompt Titan:
+  > *"Processed N items: M single tasks/routines moved to `next-actions.md`, K projects staged in `projects.md`. Run `/project` to break down your staged projects!"*

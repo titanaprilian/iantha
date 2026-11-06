@@ -51,7 +51,7 @@ Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it 
 ├── CLAUDE.md              # Persona, rules, memory map
 ├── README.md              # You're reading it
 ├── config.yaml            # Timezone and user configuration
-├── .claude/skills/        # /initial, /clarify, /daily, /daily-review, /weekly-review, /calendar
+├── .claude/skills/        # /initial, /clarify, /project, /daily, /daily-review, /weekly-review, /calendar
 └── memory/                # GTD lists, personal context, reference
 ```
 
@@ -60,7 +60,8 @@ Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it 
 | Command | When | What it does |
 |---------|------|--------------|
 | `/initial` | onboarding or intake dump | Short intake interview — seeds your personal context, captures inbox items, and launches /clarify |
-| `/clarify` | when processing inbox | Decides the fate of each raw input interactively; creates projects and next actions only after clarification |
+| `/clarify` | when processing inbox | Batch clarification — predicts tasks vs projects in one table, routes tasks, stages projects |
+| `/project` | scoping a project | Dedicated project breakdown — refines outcome and recommends bite-sized 50/10 tasks |
 | `/daily` | start of focus | Check-in — pulls today's pre-timeboxed schedule from Google Calendar and primes focus boundaries |
 | `/weekly-review` | weekly | 2-Step Planning — clarifies inbox into tasks/projects, then timeboxes the week into Google Calendar |
 | `/daily-review` | end of day | Review — confirms completed blocks/actions, sweeps loose thoughts into inbox |
