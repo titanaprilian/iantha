@@ -1,6 +1,6 @@
 # Iantha Memory Index
 
-*Updated: 2026-11-06 11:20*
+*Updated: 2026-11-06 11:35*
 
 Iantha reads this at session start. This file is an index — full content lives in the per-topic files below.
 
