@@ -1,6 +1,6 @@
 # Next Actions
 
-*Updated: 2026-11-06 18:28*
+*Updated: 2026-11-06 18:42*
 Unblocked, physical actions grouped by context. Brackets show estimated duration and energy, not scheduled appointments. On completion, choose and link the next action for any still-active project.
 
 ## @deep-work
@@ -35,7 +35,6 @@ Unblocked, physical actions grouped by context. Brackets show estimated duration
 - [ ] **R05 · Recurring** — Throw organic trash to the chicken coop at least 3 days per week. [5m, low-energy] (Next due: 2026-11-06)
 - [ ] **R03 · Recurring** — Check the durian orchard every Sunday. Usually about 30m for collecting fruit or pruning; watering can take about 4h of hard physical work. [30m typical; up to 4h, medium-to-high energy] (Next due: 2026-11-08)
 - [ ] **R04 · Recurring** — Make yogurt every Saturday morning. [60m, medium-energy] (Next due: 2026-11-07)
-- [ ] **A03 · standalone** — Buy milk for making yogurt today. [15m, low-energy]
 
 ## @comms
 
