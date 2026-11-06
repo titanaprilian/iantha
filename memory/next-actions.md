@@ -1,6 +1,6 @@
 # Next Actions
 
-*Updated: 2026-11-06 14:35*
+*Updated: 2026-11-06 14:38*
 
 Unblocked, physical actions grouped by context. Brackets show estimated duration and energy, not scheduled appointments. On completion, choose and link the next action for any still-active project.
 
@@ -10,6 +10,11 @@ Unblocked, physical actions grouped by context. Brackets show estimated duration
 - [ ] **A06 · P01** — Add a bounded worker pool with cancellation and predictable result reporting. [50m, high-energy]
 - [ ] **A07 · P01** — Test success, HTTP errors, timeouts, and cancellation with `httptest`; run the race detector. [50m, high-energy]
 - [ ] **A08 · P01** — Benchmark sequential versus concurrent checks against a local test server; record the results. [50m, high-energy]
+- [ ] **A09 · P02** — Select one coding interview problem and prepare a short checklist for explaining your approach, complexity, and trade-offs aloud. [50m, medium-energy]
+- [ ] **A10 · P02** — Complete a timed mock: solve the selected problem while explaining your reasoning aloud; note what went well and what stalled. [50m, high-energy]
+- [ ] **A11 · P02** — Record a five-minute explanation of one project, covering its design, trade-offs, and one challenge; review it and note improvements. [50m, medium-energy]
+- [ ] **A12 · P02** — Draft and practice concise STAR answers to five common behavioral questions. [50m, medium-energy]
+- [ ] **A13 · P02** — Run a timed mock covering coding, project explanation, and behavioral questions; write three specific improvement actions. [50m, high-energy]
 
 ## @admin / @computer-light
 - [ ] **A01 · standalone** — Watch and listen to a productivity podcast or YouTube video for at least 30 minutes. [30m, low-energy]
