@@ -58,13 +58,112 @@ class ActionItem:
     context: str
     sessions_needed: int = 1
 
+def get_project_short_prefix(parent_id: str) -> str:
+    """Map P## to a short, recognizable domain prefix."""
+    mapping = {
+        "P01": "Go",
+        "P02": "Interview",
+        "P03": "Pragmatic",
+        "P04": "AI Workflow",
+    }
+    return mapping.get(parent_id, "")
+
+
+def clean_summary(title: str, parent_id: str = "", session_num: int = 1, max_len: int = 38) -> str:
+    """Produce a concise, readable event title (<= 38 chars) for phone/calendar grids."""
+    short = re.split(r"[;—\.]", title)[0].strip()
+
+    fillers = [
+        r"^Define the\s+",
+        r"^Implement\s+",
+        r"^Select one\s+",
+        r"^Complete the\s+",
+        r"^Complete a\s+",
+        r"^Study the\s+",
+        r"^Find and save the specific\s+",
+        r"^Find and save\s+",
+        r"^Watch and listen to a\s+",
+        r"^Watch and listen to\s+",
+        r"^Set up a\s+",
+        r"^Set up the\s+",
+        r"^Apply one approach to a\s+",
+        r"^Choose five practices from the notes and\s+",
+        r"^Choose five practices\s+",
+        r"^Record a five-minute\s+",
+        r"^Draft and practice\s+",
+        r"^Run a timed\s+",
+        r"^Add a bounded\s+",
+        r"^Test success,\s+",
+        r"^Benchmark\s+",
+    ]
+    for pat in fillers:
+        short = re.sub(pat, "", short, flags=re.IGNORECASE).strip()
+
+    if "CLI's inputs, output" in short:
+        short = "CLI Module Setup"
+    elif "Maganghub PT DOT" in short:
+        short = "Maganghub PT DOT Test"
+    elif "sequential URL checking" in short or "Sequential URL checking" in short:
+        short = "Sequential net/http Checks"
+    elif "worker pool" in short:
+        short = "Bounded Worker Pool"
+    elif "race detector" in short or "httptest" in short:
+        short = "httptest & Race Detector"
+    elif "sequential versus concurrent" in short:
+        short = "Benchmark Sequential vs Pool"
+    elif "coding interview problem" in short:
+        short = "Coding Problem Checklist"
+    elif "timed mock" in short:
+        short = "Coding Mock Interview"
+    elif "explanation of one project" in short:
+        short = "5-min Project Mock"
+    elif "STAR answers" in short:
+        short = "5 STAR Behavioral Answers"
+    elif "mock covering coding" in short:
+        short = "Full Comprehensive Mock"
+    elif "poteto and Matt Pocock" in short:
+        short = "Save Poteto & Pocock Refs"
+    elif "first workflow" in short:
+        short = "Study Poteto Workflow"
+    elif "second workflow" in short:
+        short = "Study Pocock Workflow"
+    elif "bounded Go task" in short:
+        short = "Agent-Assisted Go Task"
+    elif "reusable checklist" in short:
+        short = "AI Workflow Checklist"
+    elif "first portion of the book" in short:
+        short = "Read Part 1 & Log 3 Ideas"
+    elif "next portion" in short:
+        short = "Read Part 2 & Note Practices"
+    elif "Finish the book" in short:
+        short = "Finish Book & Key Takeaways"
+    elif "write one concrete application" in short or "Choose five practices" in short:
+        short = "Apply 5 Book Practices"
+    elif "reading log" in short:
+        short = "Reading Log Setup"
+    elif "productivity podcast" in short:
+        short = "Productivity Podcast"
+
+    prefix = get_project_short_prefix(parent_id)
+    if prefix and not short.lower().startswith(prefix.lower()):
+        combined = f"{prefix}: {short}"
+    else:
+        combined = short
+
+    suffix = f" ({session_num})" if session_num > 1 else ""
+    budget = max_len - len(suffix)
+
+    if len(combined) > budget:
+        combined = combined[:budget].rsplit(" ", 1)[0].rstrip(",;:- ")
+
+    return f"{combined}{suffix}"
+
 
 @dataclass
 class TimeSlot:
     start_time: str  # "HH:MM"
     end_time: str    # "HH:MM"
     slot_type: str   # "deep_work", "admin", "fitness", "chore"
-
 
 def parse_next_actions(md_path: Path) -> dict[str, list[ActionItem]]:
     """Parse next-actions.md into categories."""
@@ -279,31 +378,31 @@ def build_weekly_schedule(
         for slot_start, slot_end in morning_slots:
             if deep_work_queue:
                 item, session_num = deep_work_queue.pop(0)
-                session_tag = f" — session {session_num}" if item.sessions_needed > 1 else ""
-                summary = f"{item.title}{session_tag}"
+                summary = clean_summary(item.title, item.parent_id, session_num)
                 schedule.append({
-                    "summary": summary[:100],
+                    "summary": summary,
                     "start": f"{date_str}T{slot_start}:00{tz_offset}",
                     "end": f"{date_str}T{slot_end}:00{tz_offset}",
                     "location": LOCATION_STUDY,
                     "colorId": COLOR_DEEP_WORK,
                     "description": (
-                        f"Task: {item.action_id} · {item.parent_id}; Context: @deep-work; "
-                        f"Definition of done: {item.title}. "
+                        f"Task: {item.action_id} · {item.parent_id}; Context: @deep-work;\n"
+                        f"Definition of done: {item.title}.\n"
                         f"Boundary: Phone in another room. [iantha-task:{item.action_id}]"
                     ),
                     "task_id": item.action_id,
                 })
             elif admin_queue:
                 item = admin_queue.pop(0)
+                summary = clean_summary(item.title, item.parent_id, 1)
                 schedule.append({
-                    "summary": item.title[:100],
+                    "summary": summary,
                     "start": f"{date_str}T{slot_start}:00{tz_offset}",
                     "end": f"{date_str}T{slot_end}:00{tz_offset}",
                     "location": LOCATION_STUDY,
                     "colorId": COLOR_ADMIN,
                     "description": (
-                        f"Task: {item.action_id} · {item.parent_id}; Context: @admin; "
+                        f"Task: {item.action_id} · {item.parent_id}; Context: @admin;\n"
                         f"Definition of done: {item.title}. [iantha-task:{item.action_id}]"
                     ),
                     "task_id": item.action_id,
@@ -324,32 +423,31 @@ def build_weekly_schedule(
         for slot_start, slot_end in afternoon_slots:
             if admin_queue:
                 item = admin_queue.pop(0)
+                summary = clean_summary(item.title, item.parent_id, 1)
                 schedule.append({
-                    "summary": item.title[:100],
+                    "summary": summary,
                     "start": f"{date_str}T{slot_start}:00{tz_offset}",
                     "end": f"{date_str}T{slot_end}:00{tz_offset}",
                     "location": LOCATION_STUDY,
                     "colorId": COLOR_ADMIN,
                     "description": (
-                        f"Task: {item.action_id} · {item.parent_id}; Context: @admin; "
+                        f"Task: {item.action_id} · {item.parent_id}; Context: @admin;\n"
                         f"Definition of done: {item.title}. [iantha-task:{item.action_id}]"
                     ),
                     "task_id": item.action_id,
                 })
             elif deep_work_queue:
-                # If admin is finished, pull secondary deep work into afternoon
                 item, session_num = deep_work_queue.pop(0)
-                session_tag = f" — session {session_num}" if item.sessions_needed > 1 else ""
-                summary = f"{item.title}{session_tag}"
+                summary = clean_summary(item.title, item.parent_id, session_num)
                 schedule.append({
-                    "summary": summary[:100],
+                    "summary": summary,
                     "start": f"{date_str}T{slot_start}:00{tz_offset}",
                     "end": f"{date_str}T{slot_end}:00{tz_offset}",
                     "location": LOCATION_STUDY,
                     "colorId": COLOR_DEEP_WORK,
                     "description": (
-                        f"Task: {item.action_id} · {item.parent_id}; Context: @deep-work; "
-                        f"Definition of done: {item.title}. "
+                        f"Task: {item.action_id} · {item.parent_id}; Context: @deep-work;\n"
+                        f"Definition of done: {item.title}.\n"
                         f"Boundary: Phone in another room. [iantha-task:{item.action_id}]"
                     ),
                     "task_id": item.action_id,
