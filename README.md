@@ -16,7 +16,7 @@ Optionally point Iantha at an Obsidian vault and it doubles as a knowledge-base 
 
 Claude Code remembers nothing between sessions. Mention "remind me Friday" or "I've decided to stop X" — next session starts blank. There's no structure for tasks, routines, or the life context you'd actually want an assistant to know.
 
-Iantha is that structure: memory files for GTD capture, clarification, context-specific action, and weekly review; a `/setup` onboarding interview; daily-rhythm skills; and an optional Obsidian vault. The part you'd build yourself after a month of using Claude Code for life admin.
+Iantha is that structure: memory files for GTD capture, clarification, context-specific action, and weekly review; an `/initial` onboarding interview; daily-rhythm skills; and Google Calendar integration. The part you'd build yourself after a month of using Claude Code for life admin.
 
 ## Setup
 
@@ -40,9 +40,9 @@ cd ~/iantha
 claude
 ```
 
-Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it yours in one sitting, type **`/setup`** — a short, skippable interview that captures your real tasks to the inbox and records routines and people. Use `/clarify` to turn those inputs into GTD actions, then `/daily` to view today's timebox. Prefer to skip setup? Just start talking; `/setup` is re-runnable later to fill gaps.
+Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it yours in one sitting, type **`/initial`** — a short, skippable interview that captures your real tasks to the inbox and records routines and people. Use `/clarify` to turn those inputs into GTD actions, then `/daily` to view today's timebox. Prefer to skip initial? Just start talking; `/initial` is re-runnable later to fill gaps.
 
-> First setup: use the template, run `claude`, type `/setup`, then `/clarify`. Day to day: `/daily` and `/daily-review`; weekly: `/weekly-review`.
+> First setup: use the template, run `claude`, type `/initial`, then `/clarify`. Day to day: `/daily` and `/daily-review`; weekly: `/weekly-review`.
 
 ## What's Inside
 
@@ -51,7 +51,7 @@ Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it 
 ├── CLAUDE.md              # Persona, rules, memory map
 ├── README.md              # You're reading it
 ├── config.yaml            # Timezone and user configuration
-├── .claude/skills/        # /setup, /clarify, /daily, /daily-review, /weekly-review, /calendar
+├── .claude/skills/        # /initial, /clarify, /daily, /daily-review, /weekly-review, /calendar
 └── memory/                # GTD lists, personal context, reference
 ```
 
@@ -59,7 +59,7 @@ Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it 
 
 | Command | When | What it does |
 |---------|------|--------------|
-| `/setup` | first run (or to fill gaps) | Short onboarding interview — seeds your memory with your real life, then briefs you |
+| `/initial` | onboarding or intake dump | Short intake interview — seeds your personal context, captures inbox items, and launches /clarify |
 | `/clarify` | when processing inbox | Decides the fate of each raw input interactively; creates projects and next actions only after clarification |
 | `/daily` | start of focus | Check-in — pulls today's pre-timeboxed schedule from Google Calendar and primes focus boundaries |
 | `/weekly-review` | weekly | 2-Step Planning — clarifies inbox into tasks/projects, then timeboxes the week into Google Calendar |

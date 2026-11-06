@@ -35,7 +35,7 @@ In-repo skills (under `.claude/skills/`):
 
 | Skill | When | Purpose |
 |-------|------|---------|
-| `/setup` | first run (or to fill gaps) | Onboarding interview — seed blank memory with your real life, then run /daily on it |
+| `/initial` | onboarding or intake dump | Intake interview — captures personal context & inbox tasks, then transitions to /clarify |
 | `/clarify` | when processing the inbox | Decide each captured input's fate with the GTD decision tree; empty processed entries |
 | `/daily` | start of focus | Check-in — pull today's timeboxed calendar schedule and prime workspace boundaries |
 | `/daily-review` | end of day | Review — confirm completed blocks/actions, sweep loose thoughts into inbox |
