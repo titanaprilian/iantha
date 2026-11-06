@@ -1,11 +1,11 @@
 # Next Actions
 
-*Updated: 2026-11-06 15:23*
+*Updated: 2026-11-06 15:26*
 Unblocked, physical actions grouped by context. Brackets show estimated duration and energy, not scheduled appointments. On completion, choose and link the next action for any still-active project.
 
 ## @deep-work
 - [ ] **A04 · P01** — Define the CLI's inputs, output, and error behavior; initialize the Go module and package structure across two 50-minute sessions. [2×50m, medium-energy]
-- [ ] **A24 · standalone** — Complete the Maganghub PT DOT technical test across two 50-minute morning sessions. [2×50m, medium-energy]
+- [ ] **A24 · standalone** — Complete the Maganghub PT DOT technical test tomorrow in one day, split into two 50-minute morning sessions. [2×50m, medium-energy]
 - [ ] **A05 · P01** — Implement sequential URL checking with `net/http`, request timeouts, and wrapped errors. [50m, high-energy]
 - [ ] **A06 · P01** — Add a bounded worker pool with cancellation and predictable result reporting. [50m, high-energy]
 - [ ] **A07 · P01** — Test success, HTTP errors, timeouts, and cancellation with `httptest`; run the race detector. [50m, high-energy]
