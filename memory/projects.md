@@ -1,6 +1,6 @@
 # Projects
 
-*Updated: 2026-11-06 14:41*
+*Updated: 2026-11-06 14:46*
 
 Outcomes requiring more than one physical step. Each Active project links to an unblocked action in `next-actions.md`; replace that link when the action is completed. Put projects blocked by others On Hold and track the blocker in `waiting-for.md`.
 
@@ -9,10 +9,7 @@ Outcomes requiring more than one physical step. Each Active project links to an 
 Projects captured and staged from `/clarify` that await task breakdown via `/project`.
 
 
-### P04 — Learn maximizing AI Agents workflow
-- **Outcome / Done:** Learn AI-agent workflow practices, including the named examples.
-- **Status:** Unclarified
-- **Tasks:** (Run `/project` or `/project P04` to generate concrete tasks)
+
 
 ## Active
 
@@ -48,6 +45,17 @@ Projects captured and staged from `/clarify` that await task breakdown via `/pro
   - A16 · Read the next portion and add three ideas or questions; note a practice relevant to Go work.
   - A17 · Finish the book and capture key takeaways in the reading log.
   - A18 · Choose five practices from the notes and write one concrete application for the Go project or interview preparation.
+
+### P04 — Learn maximizing AI Agents workflow
+- **Outcome / Done:** Compare two AI-agent workflow approaches, build a small agent-assisted workflow reusable in the Go project, and document what worked, limitations, and when to use it.
+- **Status:** Active
+- **Next Action ID/Name:** A19 · Find and save workflow references
+- **Tasks:**
+  - A19 · Find and save the specific “poteto” and Matt Pocock workflow references; write down what to learn from each.
+  - A20 · Study the first workflow and document its steps, tools, and one use case for the Go project.
+  - A21 · Study the second workflow and document its steps, tools, and one use case for the Go project.
+  - A22 · Apply one approach to a bounded Go task; record the prompt/context, review steps, and result.
+  - A23 · Compare the approaches and write a reusable checklist covering suitable tasks, verification, and limitations.
 ## On Hold
 
 ## Completed
