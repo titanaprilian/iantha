@@ -28,15 +28,32 @@ Inspect `memory/personal.md` and `memory/inbox.md`.
 
 ---
 
-### 2. Personal Context (Optional for returning users)
+### 2. Personal Context Review & Update
 
-Ask conversationally (every question is skippable):
-1. **About & Life Context**: Name, primary role, key life situation or deadlines (e.g. graduation, job search).
-2. **Routines**: Morning/evening anchors (e.g. Subuh prayer, workouts, regular commitments).
-3. **Preferences**: Working rhythm (e.g. 50/10 focus blocks), workspace boundaries (e.g. phone in another room), communication preferences.
-4. **People**: Key people worth remembering (collaborators, family, professors).
+When a user chooses to view or update personal context, **first read and display their active preferences in a clean, tracer-bullet list** so they can easily see what is currently configured:
+
+```markdown
+Here are your active preferences and routines from `memory/personal.md`:
+
+• Task granularity: Warn against vague tasks; break down into concrete mini-goals
+• Frameworks: Atomic Habits (Implementation Intentions & Habit Stacking encoded in calendar)
+• Deep work boundary: Phone-free focus zone (phone in another room)
+• Work rhythm: 50-minute focus / 10-minute break cycles (3 cycles / 3 hours)
+• Morning anchor: Post-Subuh prayer strength training (chest & legs consistency)
+• Energy windows: High-energy morning block (deep focus); low-energy afternoon block (light work)
+```
+
+Then ask specifically:
+> *"Which of these would you like to tweak, remove, or what new preference/routine would you like to add?"*
+
+For fresh users, walk conversationally through:
+1. **About & Life Context**: Name, role, current life situation/deadlines.
+2. **Routines**: Morning/evening anchors and standing commitments.
+3. **Preferences**: Working rhythms, boundaries, task granularity.
+4. **People**: Key people worth tracking.
 
 Save answers directly to `memory/personal.md` under the canonical section headers.
+Update `*Updated: YYYY-MM-DD HH:MM*` on `memory/personal.md`, commit, and push.
 
 ---
 
