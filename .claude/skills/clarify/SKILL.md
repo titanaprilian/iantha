@@ -76,5 +76,13 @@ Once Titan confirms the table:
   git commit -m "clarify: batch processed N inbox items into tasks and projects"
   git push origin main
   ```
-- Print a summary and prompt Titan:
-  > *"Processed N items: M single tasks/routines moved to `next-actions.md`, K projects staged in `projects.md`. Run `/project` to break down your staged projects!"*
+- Print a summary and prompt Titan with explicit next actions:
+  > *"Processed N items:*
+  > *• M single tasks/routines moved directly to `memory/next-actions.md`*
+  > *• K projects staged in `memory/projects.md` (Unclarified)*
+  >
+  > *What would you like to do next?*
+  > *1. Run `/project` to scope and break down your staged projects into concrete tasks.*
+  > *2. Run `/weekly-review` to jump straight to timeboxing your existing actions into Google Calendar.*
+  >
+  > *Which one shall we run?"*
