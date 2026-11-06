@@ -61,7 +61,26 @@ Match tasks from `memory/next-actions.md` to the user's energy patterns from `me
 - **Afternoon hours**: Schedule `@admin` and low-friction tasks.
 - **Buffers**: Leave ~20-30% buffer so the week does not collapse if an item overruns.
 
-### 3. Elicit Intentions & Insert Events
+**CRITICAL FORMAT RULE**: Never list cryptic IDs like "A04 · A05" in the proposal table or summary. Titan must be able to read what each task actually is at a glance.
+
+Format the proposal day by day with explicit times and full task titles/deliverables:
+
+```markdown
+### 📅 Proposed Weekly Timebox Plan
+
+#### Saturday (YYYY-MM-DD)
+- 05:30 - 06:15 · **R01**: Strength training (chest & legs) [@offline]
+- 07:00 - 07:30 · **R03**: Make yogurt [@offline]
+- 08:00 - 08:50 · **A04** (Golang): Set up Go workspace and write hello-world CLI [@deep-work]
+- 09:00 - 09:50 · **A05** (Golang): Practice structs and slices exercises [@deep-work]
+- 13:00 - 13:30 · **A14** (Admin): Review university graduation checklist [@admin]
+
+#### Sunday (YYYY-MM-DD)
+- 05:30 - 06:15 · **R02**: Jogging session [@offline]
+- 08:00 - 08:50 · **A07** (Interview): Practice LeetCode #206 reverse linked list [@deep-work]
+- 13:00 - 14:00 · **R04**: Check durian orchard [@offline]
+...
+```
 For each proposed focus block, follow `memory/reference.md`:
 - Ask Titan to confirm the slot and deliverable.
 - Insert the event using `gws calendar +insert`:
