@@ -5,7 +5,7 @@ description: Complete GTD weekly review — Get Clear (process inbox), Get Curre
 
 # /weekly-review — Get Clear, Get Current, Get Creative
 
-A guided review, not automatic task execution. Read `config.yaml` and any `config.local.yaml` override for timezone and vault configuration; use the user's local date. Keep existing deadlines and status unchanged unless Titan confirms a change. Do not claim an empty inbox or a verified calendar when either is unavailable.
+A guided review, not automatic task execution. Read `config.yaml` and any `config.local.yaml` override for timezone; use the user's local date. Keep existing deadlines and status unchanged unless Titan confirms a change. Do not claim an empty inbox or a verified calendar when either is unavailable.
 
 ## 1. Get Clear — collect and process
 

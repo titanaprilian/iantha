@@ -50,10 +50,9 @@ Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it 
 .
 ├── CLAUDE.md              # Persona, rules, memory map
 ├── README.md              # You're reading it
-├── config.yaml            # Optional vault config (vault_dir + subdirs)
-├── .claude/skills/        # /setup, /clarify, /morning, /evening, /weekly-review, and supporting skills
-├── memory/                # GTD lists, personal context, decisions, learnings
-└── vault-template/        # Starter VAULT.md to copy into your Obsidian vault
+├── config.yaml            # Timezone and user configuration
+├── .claude/skills/        # /setup, /clarify, /morning, /evening, /weekly-review, /calendar
+└── memory/                # GTD lists, personal context, reference
 ```
 
 ## Daily Use
@@ -65,11 +64,7 @@ Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it 
 | `/morning` | start of day | Respects calendar commitments; matches next actions to context, time, energy, and priority; elicits focus-block intentions |
 | `/weekly-review` | weekly | Gets Clear, Current, and Creative across GTD lists and the calendar |
 | `/evening` | end of day | Checks off confirmed actions, prompts the next physical step for active projects, advances routines |
-| `/debrief` | end of substantive session | Captures decisions, learnings, feedback into memory |
-| `/obsidian` | as needed | Vault read/write primitives (no-op without `vault_dir`) |
-| `/housekeep` | weekly | Audits memory + skills + vault hygiene |
-| `/consolidate-learning` | monthly | Promotes skill "Learned from runs" entries into main instructions |
-
+| `/calendar` | as needed | Google Calendar integration via `gws` (agenda, schedule events) |
 Plus two more skills installed from [`kiloloop/oacp-skills`](https://oacp.dev/skills/) (see "Shared Skills" below) — `/self-improve`, `/wrap-up`.
 
 Outside those, just talk to Iantha. Mention "tomorrow" or "by Friday" — it captures your exact words to `memory/inbox.md` without categorizing or scheduling; use `/clarify` when you're ready to process them. Share preferences or routines — it remembers. Ask for context — it surfaces what's relevant.
@@ -84,15 +79,15 @@ Ambient tasks are captured verbatim to the inbox before classification or schedu
 >
 > **Iantha:** Captured to inbox.
 
-**Decision logging in passing.** Mention a decision and Iantha writes it to `memory/decisions.md` so it doesn't evaporate:
+**Reference logging in passing.** Operational rules and tool setups are logged to `memory/reference.md`:
 
-> **You:** I've decided to switch the team standup from daily to weekly. Signal-to-noise was too low.
+> **You:** We need to always pass `--timezone` to gws calendar commands.
 >
-> **Iantha:** Logged the decision in `memory/decisions.md` with today's date and rationale. Want me to capture updating the recurring invite in the inbox?
+> **Iantha:** Added that to `memory/reference.md` under tool notes.
 
 ## Memory
 
-Iantha's persistent state is in `memory/`. Ambient inputs go verbatim to `inbox.md`, then `/clarify` routes them interactively into outcomes, physical next actions, external blockers, reference, or ideas to revisit. An active project always has an unblocked next action. The pre-GTD task list is preserved in `archive/tasks-pre-gtd.md`.
+Iantha's persistent state is in `memory/`. Ambient inputs go verbatim to `inbox.md`, then `/clarify` routes them interactively into outcomes, physical next actions, external blockers, reference, or ideas to revisit. An active project always has an unblocked next action.
 
 | File | Purpose |
 |------|---------|
@@ -101,12 +96,8 @@ Iantha's persistent state is in `memory/`. Ambient inputs go verbatim to `inbox.
 | `next-actions.md` | Physical next actions by context, duration, energy; routines |
 | `waiting-for.md` | Externally blocked or delegated items |
 | `someday-maybe.md` | Incubating ideas |
-| `archive/tasks-pre-gtd.md` | Historical pre-GTD tasks, not an active list |
+| `reference.md` | Non-actionable knowledge, rules, constraints, and tool reference |
 | `personal.md` | About you — preferences, routines, people, life context |
-| `priorities.md` | What you're focused on right now |
-| `decisions.md` | Decisions you've made, with date and rationale |
-| `feedback.md` | Corrections you've given Iantha (so it doesn't repeat mistakes) |
-| `learnings.md` | Operational knowledge — tool gotchas, workflow insights |
 | `MEMORY.md` | Thin index, loaded at session start |
 
 The repo is git-tracked. Commit your memory updates and your context follows you across machines.
@@ -118,25 +109,6 @@ Iantha is files on your disk, nothing else.
 - **Nothing leaves your machine** beyond your normal runtime traffic to its model provider (Claude Code → Anthropic, Codex → OpenAI) — no extra services, no telemetry, no third-party calls.
 - **Memory is plain markdown.** Every fact Iantha knows about you is a diffable file in `memory/` you can read, edit, or delete — and `git log` is the audit trail of what changed and when.
 - **No self-granted authority.** Memory is treated as executable policy: Iantha's rules forbid storing anything that would grant itself approval or identity shortcuts (the failure shape Anthropic documents in the Fable 5 system card, §2.3.3) — if such an entry ever appears, it gets flagged to you instead of followed.
-- **The vault is optional and just as local.** Leave `vault_dir` unset and Iantha never touches Obsidian.
-
-## Knowledge Base mode (optional)
-
-Set `vault_dir` in `config.yaml` to point Iantha at an Obsidian vault. Then:
-
-- `/morning` and `/evening` append to `${vault_dir}/daily/YYYY-MM-DD.md`
-- `/obsidian decision` files decisions into `${vault_dir}/decisions/`
-- `/obsidian reading-list` queues docs for your review
-- `/obsidian lint` flags broken wikilinks, stale `_to-delete/` items, orphans
-
-Run `/obsidian init` once to seed the vault with the standard directories and copy `vault-template/VAULT.md` into it. The handbook there is the contract Iantha follows when writing.
-
-```yaml
-# config.yaml
-vault_dir: ~/Documents/MyVault
-```
-
-If `vault_dir` is unset, every vault hook no-ops silently — Iantha works fully without a vault.
 
 ## Shared Skills
 
@@ -154,7 +126,6 @@ You get:
 Optional, install per-need: `/doctor`, `/check-inbox`, `/review-loop-*`.
 
 ## Multi-runtime setup (optional)
-
 If you run Iantha alongside other agents (Claude Code + Codex + Gemini, etc.) and want them to share session memory across runtimes, look at [`kiloloop/cortex`](https://github.com/kiloloop/cortex) — a cross-session memory layer (SSOT + debrief inbox) built on the [OACP](https://github.com/kiloloop/oacp) protocol. Cortex publishes its own `/debrief` and `/sync` skills wired to a shared inbox; Iantha's in-repo `/debrief` is the single-agent equivalent.
 
 For solo personal use, you don't need cortex.
@@ -168,8 +139,7 @@ Iantha has no runtime lock-in — it **ships ready for both Claude Code and Code
 | **Instructions** | `CLAUDE.md` | `AGENTS.md` | `AGENTS.md` is a symlink to `CLAUDE.md` |
 | **Skills** | `.claude/skills/` | `.agents/skills/` | `.agents/skills/` is a symlink to `.claude/skills/` |
 | **Memory + config** | `memory/`, `config.yaml` | same | shared as-is — not runtime-specific |
-
-So on Codex you **clone and go**, same as Claude Code: launch Codex in the repo and it loads its persona/rules from `AGENTS.md` and discovers the skills under `.agents/skills/` — the very same files Claude Code uses. The two helper scripts (`/obsidian`, `/housekeep`) are pure Python that runs anywhere.
+So on Codex you **clone and go**, same as Claude Code: launch Codex in the repo and it loads its persona/rules from `AGENTS.md` and discovers the skills under `.agents/skills/` — the very same files Claude Code uses.
 
 **Customizing carries across both** — edit `CLAUDE.md` to rename the persona or tweak a rule, or edit a `.claude/skills/<name>/SKILL.md`, and both runtimes follow, because the symlinks point at those originals.
 

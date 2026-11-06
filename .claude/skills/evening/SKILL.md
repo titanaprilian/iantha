@@ -13,7 +13,7 @@ When the user runs `/evening`, do the following:
 
 ### 1. Load config
 
-Read `config.yaml` (and `config.local.yaml` if present, with local overriding). Note whether `vault_dir` is set — controls step 6.
+Read `config.yaml` (and `config.local.yaml` if present, with local overriding).
 
 ### 2. Confirm completed actions
 
@@ -35,20 +35,14 @@ For each daily routine Titan confirms completed, record that occurrence as `[x]`
 
 Look at `memory/next-actions.md` for actions and routines due tomorrow or carrying over; check `memory/waiting-for.md` for dated follow-ups and `memory/inbox.md` for unprocessed commitments. Surface them briefly. Adjust priorities if the user wants.
 
-### 6. Daily log (if `vault_dir` configured)
+### 6. Distillation check (Rule D)
 
-If `vault_dir` is set in `config.yaml`, call `/obsidian daily-log` to append today's wrap entry to `${vault_dir}/${vault_daily}/YYYY-MM-DD.md`. Use a `## Wrap` section. Keep to 5-15 lines: what got done, what's carrying over, anything notable.
+Did any pattern repeat 3+ times this session/week? Did any operational rule or tool insight get confirmed?
 
-If `vault_dir` is unset, skip silently — Iantha doesn't keep in-repo daily logs by default.
-
-### 7. Distillation check (Rule E)
-
-Did any pattern repeat 3+ times this session/week? Did any decision get made that should be logged?
-
-- If yes: propose adding to `memory/decisions.md` (with date + Why) or as a standing rule in `CLAUDE.md`.
+- If yes: propose adding to `memory/reference.md` or as a standing rule in `CLAUDE.md`.
 - Wait for user confirmation before writing.
 
-### 8. Commit & push
+### 7. Commit & push
 
 Stage updated memory files, commit, and push:
 

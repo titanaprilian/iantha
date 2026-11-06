@@ -14,9 +14,9 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
 ### 1. Load config + detect memory state
 
 - Read `config.yaml` (and `config.local.yaml` if present, with local overriding). Note `timezone` (falls back to system TZ) and `user_name`.
-- Inspect the live GTD lists (`memory/inbox.md`, `memory/projects.md`, `memory/next-actions.md`, `memory/waiting-for.md`, `memory/someday-maybe.md`) plus `memory/personal.md`, `memory/priorities.md`, and `memory/decisions.md`. Treat only unprocessed inputs, real outcomes/actions, or real personal information as filled; section headers and guidance alone are blank. The `*.md.example` seeds are *not* live files.
+- Inspect the live GTD lists (`memory/inbox.md`, `memory/projects.md`, `memory/next-actions.md`, `memory/waiting-for.md`, `memory/someday-maybe.md`) plus `memory/personal.md` and `memory/reference.md`. Treat only unprocessed inputs, real outcomes/actions, or real personal information as filled; section headers and guidance alone are blank.
 - This sets the mode:
-- **First-run** — no real entries in any live GTD list, `personal.md`, `priorities.md`, or `decisions.md` → offer the full interview.
+- **First-run** — no real entries in any live GTD list, `personal.md`, or `reference.md` → offer the full interview.
 - **Gap-fill** — some real entries exist, but a relevant section is empty → ask only about gaps; frame it as *"filling in what's still missing,"* not a fresh start.
 
 ### 2. Offer — don't force
@@ -35,13 +35,11 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
   | # | Question | Lands in |
   |---|----------|----------|
   | 1 | Name, role, what you're working on broadly | `personal.md` → About + Life Context |
-  | 2 | Your top 3 focus areas right now | `priorities.md` → Top 3 |
-  | 3 | Current tasks + any deadlines | `inbox.md` → Unprocessed (verbatim, including deadlines) |
-  | 4 | Routines worth knowing (gym, weekly review, standing commitments) | `personal.md` → Routines |
-  | 5 | Key people (family, close colleagues) | `personal.md` → People |
-  | 6 | Anything time-bound coming up (trips, events, renewals) | `inbox.md` (verbatim) + `priorities.md` → Watch |
-  | 7 | How you like things (communication style, scheduling habits) | `personal.md` → Preferences |
-  | 8 | Any standing decisions worth recording | `decisions.md` (only if one surfaces) |
+  | 2 | Current tasks, outcomes, ideas + any deadlines | `inbox.md` → Unprocessed (verbatim, including deadlines) |
+  | 3 | Routines worth knowing (gym, focus blocks, standing commitments) | `personal.md` → Routines |
+  | 4 | Key people (family, close colleagues) | `personal.md` → People |
+  | 5 | How you like things (communication style, scheduling habits) | `personal.md` → Preferences |
+  | 6 | Any operational rules or tool setups to remember | `reference.md` (only if one surfaces) |
 
 - **Gap-fill mode**: skip any question whose target section is already filled. Ask only what's missing.
 - Keep it light. This is intake, not an interrogation — let the user bail at any point.
@@ -52,15 +50,14 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
 - Routing:
   - `personal.md` → About, Preferences, Routines, People, Life Context
   - GTD inputs → Append each task, idea, or worry to `inbox.md` as `- [ ] <Titan's exact words>`, keeping any dates. Do not classify or schedule it during capture. Offer `/clarify` after the interview to route entries interactively; only that step may create projects, next actions, waiting-for, reference, or someday/maybe entries.
-  - `priorities.md` → Top 3, Active, Watch
-  - `decisions.md` → only if a real decision surfaced — with a date and a `**Why**:` line (no why → don't log it as a decision)
+  - `reference.md` → operational rules, constraints, or tool reference (only if explicitly stated)
 - **Don't fabricate.** Write only what the user actually said. Leave a section blank rather than padding it with placeholder-looking content — a half-filled file the user can trust beats a full one they can't.
 - Update the `*Updated:*` timestamp on every file you touch.
 
 ### 5. Offer clarification, then brief
 
 - Offer `/clarify` to process the captured inputs interactively. If Titan accepts, complete the decision tree for each entry they want to process; if they decline, leave the raw inbox untouched.
-- Run `/morning` on the existing clarified actions and priorities. Do not turn raw inbox entries into next actions inside the briefing; `/morning` will show unprocessed time-sensitive inputs separately. If a vault is configured, `/morning` may offer its usual daily-note write.
+- Run `/morning` on the existing clarified actions. Do not turn raw inbox entries into next actions inside the briefing; `/morning` will show unprocessed time-sensitive inputs separately.
 
 ### 6. Offer to graduate off first-run
 

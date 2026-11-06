@@ -1,26 +1,9 @@
 # Iantha configuration
 #
-# All vault settings are OPTIONAL. Iantha works fully without a vault.
-# Uncomment + set vault_dir to enable the /obsidian skill and Rule G (reading list).
-#
-# Personal overrides (e.g., real vault paths, your name) can live in `config.local.yaml`,
-# which is gitignored — useful if you fork/share this repo.
+# Personal overrides can live in `config.local.yaml`, which is gitignored.
 
-# Path to your Obsidian vault root (or any markdown notes directory).
-# vault_dir: ~/Documents/MyVault
+# User identity (used in daily briefings and planning)
+user_name: "Titan"
 
-# Vault subdirectories (relative to vault_dir). Defaults shown.
-vault_daily: daily
-vault_weekly: weekly
-vault_decisions: decisions
-vault_tasks: tasks
-vault_personal: personal
-vault_artifacts: artifacts
-
-# Optional Karpathy-style knowledge-base dirs (v0.2.0 will lean on these).
-# vault_wiki: wiki
-# vault_raw: raw
-
-# User identity (used in daily logs, briefings)
-user_name: "Titan"    # e.g., "Alex"
-timezone: "Asia/Jakarta"     # e.g., "America/Los_Angeles" — falls back to system TZ if empty
+# Timezone for calendar and planning (falls back to system TZ if empty)
+timezone: "Asia/Jakarta"

@@ -9,16 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-- Five GTD memory lists for capture, multi-step projects, context-specific next actions, waiting-for items, and someday/maybe ideas; preserved the original task list byte-for-byte in `memory/archive/tasks-pre-gtd.md`.
+- Dedicated GTD memory files: `inbox.md`, `projects.md`, `next-actions.md`, `waiting-for.md`, `someday-maybe.md`, and `reference.md`.
 - `.claude/skills/clarify/SKILL.md` — interactive GTD inbox decision tree with the two-minute rule, reference, incubation, project/action linking, and waiting-for routing.
 - `.claude/skills/weekly-review/SKILL.md` — Get Clear, Get Current, Get Creative review across inbox, past/upcoming calendar, project links, waiting-for, and someday/maybe.
 
 ### Changed
 
-- Migrated four active outcomes and two daily routines into linked, actionable GTD entries. Updated memory guidance, daily skills, onboarding, and the housekeeping audit to use the new lists.
-- `AGENTS.md` / `CLAUDE.md` and `memory/MEMORY.md` now require verbatim inbox-first ambient capture and document the complete GTD lifecycle.
-- `/morning` selects unblocked actions by calendar, context, time, energy, and priority; user-generated implementation intentions remain mandatory before calendar insertion. `/calendar` uses the same user-authored gate. `/evening` checks off confirmed actions and elicits the next physical step. `/setup` captures commitments to inbox before clarification.
-
+- Streamlined memory architecture to pure GTD: pruned redundant template files (`priorities.md`, `decisions.md`, `feedback.md`, `learnings.md`) into a single `reference.md` and personal context in `personal.md`.
+- Pruned obsolete non-GTD skills: removed `/obsidian` (replaced by direct Google Calendar integration via `gws`), `/housekeep` (superseded by `/weekly-review`), `/consolidate-learning`, and `/debrief`.
+- `AGENTS.md` / `CLAUDE.md` and `memory/MEMORY.md` updated to enforce clean GTD invariants without vault or static priority overhead.
 ## [0.1.1] - 2026-06-23
 
 ### Added

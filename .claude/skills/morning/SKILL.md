@@ -15,19 +15,15 @@ When the user runs `/morning`, do the following:
 
 Read `config.yaml` (and `config.local.yaml` if it exists, with local overriding).
 Determine the target date (default: today; if user requested tomorrow, e.g. "for tomorrow", use tomorrow's date).
-Note whether `vault_dir` is set — controls the optional vault write below.
+
 ### 2. Read memory
 
 - `memory/inbox.md` — unprocessed time-bound inputs
 - `memory/projects.md` — active outcomes and their linked actions
 - `memory/next-actions.md` — unblocked actions, due dates, and routines by context
 - `memory/waiting-for.md` — externally blocked items and follow-up dates
-- `memory/priorities.md` — current top focus
-- `memory/personal.md` — routines and life context (only what's relevant to today)
-- `memory/decisions.md` — recent entries (last 7 days)
-
-If `vault_dir` is set, also read yesterday's daily note (`${vault_dir}/${vault_daily}/YYYY-MM-DD.md`) — specifically look for a `## Wrap` section (carry-over from /evening) or any "tomorrow" / "carrying over" notes. If the file doesn't exist or has no carry-over content, skip silently.
-
+- `memory/personal.md` — routines and life context (energy windows, boundaries)
+- `memory/reference.md` — operational rules, constraints, and tool settings
 ### 3. Calendar — the hard landscape
 
 - Check `gws auth status`. If authenticated, query Google Calendar for the target date via `gws calendar +agenda --today --timezone "<timezone>" --format json` or `gws calendar +agenda --tomorrow --timezone "<timezone>" --format json`. Extract all-day commitments and event start/end, summary, and location; these are fixed, not candidates to replace with discretionary work. For another requested date, use the calendar API's timeMin/timeMax in the user's local timezone rather than pretending `--today` means that date.
@@ -35,14 +31,14 @@ If `vault_dir` is set, also read yesterday's daily note (`${vault_dir}/${vault_d
 
 ### 4. Match context, time, energy, and priority
 
-- Select only uncompleted, unblocked entries from `memory/next-actions.md`; exclude `## Completed` and all `waiting-for.md` items. Check `projects.md` for the linked Active project and `priorities.md` for relative importance; do not present project titles as executable work.
-- **Context:** match `@deep-work` to an uninterrupted study workspace, `@admin` / `@computer-light` to light computer time, `@offline` to in-person/physical opportunities, `@comms` to available communication channels. **Time:** compare estimated `[Nm, energy]` to the real open window, allowing the user's 50-minute focus / 10-minute break rhythm. **Energy:** prefer high-energy `@deep-work` in Titan's morning focus hours; low-energy admin work fits later. **Priority:** among feasible options, favor the current `priorities.md` order without inventing a new deadline.
+- Select only uncompleted, unblocked entries from `memory/next-actions.md`; exclude `## Completed` and all `waiting-for.md` items. Check `projects.md` for the linked Active project; do not present project titles as executable work.
+- **Context:** match `@deep-work` to an uninterrupted study workspace, `@admin` / `@computer-light` to light computer time, `@offline` to in-person/physical opportunities, `@comms` to available communication channels. **Time:** compare estimated `[Nm, energy]` to the real open window, allowing the user's 50-minute focus / 10-minute break rhythm. **Energy:** prefer high-energy `@deep-work` in Titan's morning focus hours; low-energy admin work fits later.
 - Show dated actions and routines due today or overdue with their original dates; surface dated waiting-for follow-ups and time-sensitive raw inbox entries separately. Do not process inbox items here or promise an unclarified item a slot. If no action meets the constraints, state that instead of fabricating a task.
 - Briefly show the calendar commitments, verified open windows, feasible next-action IDs/context/duration/energy, due items, and blockers. Omit empty sections; do not manufacture locations, appointments, free windows, or implementation intentions.
 
 ### 5. Elicit the user's implementation intention
 
-Follow `memory/feedback.md`: ask Titan which feasible action and window they want, what **concrete deliverable** they will complete, and their **#1 obstacle or distraction risk**. Ask for the physical location and response to that obstacle when not supplied. Do not generate the deliverable, risk, or if-then response with AI. If Titan cannot decide, offer the matching next actions and leave the calendar unchanged.
+Follow `memory/reference.md`: ask Titan which feasible action and window they want, what **concrete deliverable** they will complete, and their **#1 obstacle or distraction risk**. Ask for the physical location and response to that obstacle when not supplied. Do not generate the deliverable, risk, or if-then response with AI. If Titan cannot decide, offer the matching next actions and leave the calendar unchanged.
 
 ### 6. Validate and insert the chosen block
 
@@ -58,16 +54,11 @@ This is a planning briefing, not a work execution session. Do not start executin
 
 If the user confirms an action is done, check it off and record the date/outcome in the project log or Completed archive; elicit and link the next action for any ongoing Active project. Advance a completed recurring action's next due date. Commit changed memory and push to `origin`. Use `/clarify` separately to process inbox entries.
 
-### 9. Optional vault write (only if `vault_dir` configured)
-
-Offer to write the briefing to `${vault_dir}/${vault_daily}/YYYY-MM-DD.md` via `/obsidian daily-log` with section name `Briefing`. Default to "yes" if the user has confirmed once before; otherwise ask. Skip silently if `vault_dir` is unset.
-
 ## Notes
 
 - Use the user's local timezone (`config.yaml: timezone` overrides system TZ).
 - Keep the briefing short and actionable. When the calendar is unavailable, state the availability limit instead of showing invented open windows.
-- If `priorities.md` or `personal.md` is empty, skip its guidance; do not fill it by inference.
-- Vault writes are optional and only happen when `vault_dir` is configured.
+- If `personal.md` is missing details, skip its guidance; do not fill it by inference.
 
 ## Learned from runs
 

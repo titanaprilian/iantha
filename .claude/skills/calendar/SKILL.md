@@ -48,7 +48,7 @@ If an event is all-day, format without times:
 
 ### 2. Schedule an Event or Focus Block (`/calendar add`, "schedule X")
 
-When scheduling personal focus blocks, study sessions, or habit routines, first follow `memory/feedback.md`: ask the user for the concrete deliverable, physical location, #1 obstacle/distraction risk, and their own if-then response. Do not AI-generate any of these or insert a block until the user confirms the plan and the requested time is available on Google Calendar. Use the confirmed words to encode *Atomic Habits* Implementation Intentions:
+When scheduling personal focus blocks, study sessions, or habit routines, first follow `memory/reference.md`: ask the user for the concrete deliverable, physical location, #1 obstacle/distraction risk, and their own if-then response. Do not AI-generate any of these or insert a block until the user confirms the plan and the requested time is available on Google Calendar. Use the confirmed words to encode *Atomic Habits* Implementation Intentions:
 - `--summary`: User's concrete action verb + deliverable (avoid vague titles like "Deep Work").
 - `--location`: User's physical workspace + confirmed boundary cue (e.g. `Study Desk (Phone in another room)`).
 - `--description`: User's intention, definition of done, and obstacle response:
