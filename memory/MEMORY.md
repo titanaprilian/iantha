@@ -1,6 +1,6 @@
 # Iantha Memory Index
 
-*Updated: 2026-11-06 10:50*
+*Updated: 2026-11-06 10:57*
 
 Iantha reads this at session start. This file is an index — full content lives in the per-topic files below.
 
@@ -23,7 +23,7 @@ Iantha reads this at session start. This file is an index — full content lives
 ## Conventions
 
 - File timestamps use the header `*Updated: YYYY-MM-DD HH:MM*` (user's local timezone)
-- Capture new inputs in `inbox.md`; clarify each into a project plus a next action, a single next action, `waiting-for.md`, or `someday-maybe.md`.
+- Capture ambient tasks, ideas, worries, and time intents verbatim in `inbox.md` as `- [ ] <user's exact words>`; do not classify or schedule on capture. Process each entry interactively with `/clarify`, including the two-minute rule, trash, reference, incubation, projects, next actions, and waiting-for.
 - GTD invariant: Every active project in `projects.md` must have at least one unblocked action in `next-actions.md`.
 - Use stable action IDs to link projects and actions. Completed actions must be replaced for ongoing projects; move externally blocked outcomes to On Hold until unblocked.
 - Contexts in `next-actions.md`: `@deep-work`, `@admin` / `@computer-light`, `@offline`, and `@comms`; record duration and energy for each action.

@@ -48,21 +48,22 @@ If an event is all-day, format without times:
 
 ### 2. Schedule an Event or Focus Block (`/calendar add`, "schedule X")
 
-When scheduling personal focus blocks, study sessions, or habit routines, apply *Atomic Habits* **Implementation Intentions**:
-- `--summary`: Concrete action verb + outcome (avoid vague titles like "Deep Work").
-- `--location`: Physical space + boundary cue (e.g. `Study Desk (Phone in another room)`).
-- `--description`: Structured with intention, definition of done, and obstacle plan:
+When scheduling personal focus blocks, study sessions, or habit routines, first follow `memory/feedback.md`: ask the user for the concrete deliverable, physical location, #1 obstacle/distraction risk, and their own if-then response. Do not AI-generate any of these or insert a block until the user confirms the plan and the requested time is available on Google Calendar. Use the confirmed words to encode *Atomic Habits* Implementation Intentions:
+- `--summary`: User's concrete action verb + deliverable (avoid vague titles like "Deep Work").
+- `--location`: User's physical workspace + confirmed boundary cue (e.g. `Study Desk (Phone in another room)`).
+- `--description`: User's intention, definition of done, and obstacle response:
   ```text
-  🎯 Implementation Intention:
-  I will [BEHAVIOR] at [TIME] in [LOCATION].
+  Implementation Intention:
+  I will [user's behavior] at [time] in [location].
 
-  ✅ Definition of Done:
-  - [Measurable outcome / deliverable]
-  - [Boundary maintained]
+  Definition of Done:
+  - [user's deliverable]
+  - [user's focus boundary]
 
-  ⚡ If-Then Rule:
-  If I encounter distraction or urge to context-switch, I will note it down on paper and stay in the session.
+  If-Then Rule:
+  If [user's obstacle/distraction occurs], I will [user's response].
   ```
+No placeholder may be inserted as event content.
 
 Execute via `gws calendar +insert`:
 ```bash

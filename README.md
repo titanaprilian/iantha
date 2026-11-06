@@ -16,7 +16,7 @@ Optionally point Iantha at an Obsidian vault and it doubles as a knowledge-base 
 
 Claude Code remembers nothing between sessions. Mention "remind me Friday" or "I've decided to stop X" — next session starts blank. There's no structure for tasks, routines, or the life context you'd actually want an assistant to know.
 
-Iantha is that structure: memory files auto-captured from chat, a `/setup` onboarding interview plus six daily-rhythm skills (`/morning`, `/evening`, `/debrief`, `/obsidian`, `/housekeep`, `/consolidate-learning`), and an optional Obsidian vault. The part you'd build yourself after a month of using Claude Code for life admin.
+Iantha is that structure: memory files for GTD capture, clarification, context-specific action, and weekly review; a `/setup` onboarding interview; daily-rhythm skills; and an optional Obsidian vault. The part you'd build yourself after a month of using Claude Code for life admin.
 
 ## Setup
 
@@ -40,9 +40,9 @@ cd ~/iantha
 claude
 ```
 
-Either way, Iantha reads `CLAUDE.md` and the `memory/` directory at session start. To make it yours in one sitting, type **`/setup`** — a short, skippable interview that seeds your memory with your real tasks, priorities, routines, and people, then runs `/morning` on it. Prefer to skip it? Just start talking — Iantha learns as you go, and `/setup` is re-runnable later to fill in the gaps.
+Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it yours in one sitting, type **`/setup`** — a short, skippable interview that captures your real tasks to the inbox and records priorities, routines, and people. Use `/clarify` to turn those inputs into GTD actions, then `/morning` to review available work against your calendar. Prefer to skip setup? Just start talking; `/setup` is re-runnable later to fill gaps.
 
-> First setup: use the template, run `claude`, type `/setup` — a few minutes. Every day after: just `/morning`.
+> First setup: use the template, run `claude`, type `/setup`, then `/clarify`. Day to day: `/morning`; weekly: `/weekly-review`.
 
 ## What's Inside
 
@@ -51,8 +51,8 @@ Either way, Iantha reads `CLAUDE.md` and the `memory/` directory at session star
 ├── CLAUDE.md              # Persona, rules, memory map
 ├── README.md              # You're reading it
 ├── config.yaml            # Optional vault config (vault_dir + subdirs)
-├── .claude/skills/        # /setup, /morning, /evening, /debrief, /obsidian, /housekeep, /consolidate-learning
-├── memory/                # Tasks, personal context, decisions, learnings
+├── .claude/skills/        # /setup, /clarify, /morning, /evening, /weekly-review, and supporting skills
+├── memory/                # GTD lists, personal context, decisions, learnings
 └── vault-template/        # Starter VAULT.md to copy into your Obsidian vault
 ```
 
@@ -61,8 +61,10 @@ Either way, Iantha reads `CLAUDE.md` and the `memory/` directory at session star
 | Command | When | What it does |
 |---------|------|--------------|
 | `/setup` | first run (or to fill gaps) | Short onboarding interview — seeds your memory with your real life, then briefs you |
-| `/morning` | start of day | Briefs you on today's tasks, priorities, anything overdue |
-| `/evening` | end of day | Archives what got done, rolls recurring tasks, notes tomorrow |
+| `/clarify` | when processing inbox | Decides the fate of each raw input interactively; creates projects and next actions only after clarification |
+| `/morning` | start of day | Respects calendar commitments; matches next actions to context, time, energy, and priority; elicits focus-block intentions |
+| `/weekly-review` | weekly | Gets Clear, Current, and Creative across GTD lists and the calendar |
+| `/evening` | end of day | Checks off confirmed actions, prompts the next physical step for active projects, advances routines |
 | `/debrief` | end of substantive session | Captures decisions, learnings, feedback into memory |
 | `/obsidian` | as needed | Vault read/write primitives (no-op without `vault_dir`) |
 | `/housekeep` | weekly | Audits memory + skills + vault hygiene |
@@ -70,27 +72,27 @@ Either way, Iantha reads `CLAUDE.md` and the `memory/` directory at session star
 
 Plus two more skills installed from [`kiloloop/oacp-skills`](https://oacp.dev/skills/) (see "Shared Skills" below) — `/self-improve`, `/wrap-up`.
 
-Outside those, just talk to Iantha. Mention "tomorrow" or "by Friday" — it auto-captures. Share preferences or routines — it remembers. Ask for context — it surfaces what's relevant.
+Outside those, just talk to Iantha. Mention "tomorrow" or "by Friday" — it captures your exact words to `memory/inbox.md` without categorizing or scheduling; use `/clarify` when you're ready to process them. Share preferences or routines — it remembers. Ask for context — it surfaces what's relevant.
 
 ## Examples
 
-These match the sample seeds the repo ships with (`memory/*.md.example`) — your first `/morning` on a fresh clone demos exactly this, labeled as sample data, while your real memory files start blank. The sample persona is a tech lead with a side project about to ship and a life around it — swap in your own.
+Ambient tasks are captured verbatim to the inbox before classification or scheduling. Process them later with `/clarify`.
 
 **Auto-capture from chat.** Mention something time-bound in normal conversation and Iantha files it:
 
 > **You:** I need to call mom tomorrow at 6pm.
 >
-> **Iantha:** Captured in `memory/next-actions.md` — call Mom tomorrow at 18:00 (`@comms`). I'll surface it in tomorrow's `/morning` briefing.
+> **Iantha:** Captured to inbox.
 
 **Decision logging in passing.** Mention a decision and Iantha writes it to `memory/decisions.md` so it doesn't evaporate:
 
 > **You:** I've decided to switch the team standup from daily to weekly. Signal-to-noise was too low.
 >
-> **Iantha:** Logged in `memory/decisions.md` with today's date, rationale captured. Want me to add updating the recurring invite to tasks?
+> **Iantha:** Logged the decision in `memory/decisions.md` with today's date and rationale. Want me to capture updating the recurring invite in the inbox?
 
 ## Memory
 
-Iantha's persistent state is in `memory/`. Capture unclarified inputs in `inbox.md`; clarify them into outcomes, physical next actions, external blockers, or ideas to revisit. An active project always has an unblocked next action. The pre-GTD task list is preserved in `archive/tasks-pre-gtd.md`.
+Iantha's persistent state is in `memory/`. Ambient inputs go verbatim to `inbox.md`, then `/clarify` routes them interactively into outcomes, physical next actions, external blockers, reference, or ideas to revisit. An active project always has an unblocked next action. The pre-GTD task list is preserved in `archive/tasks-pre-gtd.md`.
 
 | File | Purpose |
 |------|---------|

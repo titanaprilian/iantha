@@ -36,10 +36,10 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
   |---|----------|----------|
   | 1 | Name, role, what you're working on broadly | `personal.md` → About + Life Context |
   | 2 | Your top 3 focus areas right now | `priorities.md` → Top 3 |
-  | 3 | Current tasks + any deadlines | `inbox.md` (unclarified), `projects.md` (multi-step outcomes), `next-actions.md` (physical actions) |
+  | 3 | Current tasks + any deadlines | `inbox.md` → Unprocessed (verbatim, including deadlines) |
   | 4 | Routines worth knowing (gym, weekly review, standing commitments) | `personal.md` → Routines |
   | 5 | Key people (family, close colleagues) | `personal.md` → People |
-  | 6 | Anything time-bound coming up (trips, events, renewals) | `inbox.md` / `next-actions.md` + `priorities.md` → Watch |
+  | 6 | Anything time-bound coming up (trips, events, renewals) | `inbox.md` (verbatim) + `priorities.md` → Watch |
   | 7 | How you like things (communication style, scheduling habits) | `personal.md` → Preferences |
   | 8 | Any standing decisions worth recording | `decisions.md` (only if one surfaces) |
 
@@ -51,16 +51,16 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
 - Write to the **live `.md` files only**, never to historical archives or sample seeds. Preserve each file's section structure and the `*Updated: YYYY-MM-DD HH:MM*` timestamp convention (user's local timezone per config).
 - Routing:
   - `personal.md` → About, Preferences, Routines, People, Life Context
-  - GTD lists → Capture raw ambiguous answers in `inbox.md`; write multi-step outcomes to `projects.md` with an unblocked action in `next-actions.md`; single steps go to `next-actions.md` with context, duration, and energy; external blockers go to `waiting-for.md`; genuine future ideas go to `someday-maybe.md`. Preserve deadlines and never invent the user's commitments.
+  - GTD inputs → Append each task, idea, or worry to `inbox.md` as `- [ ] <Titan's exact words>`, keeping any dates. Do not classify or schedule it during capture. Offer `/clarify` after the interview to route entries interactively; only that step may create projects, next actions, waiting-for, reference, or someday/maybe entries.
   - `priorities.md` → Top 3, Active, Watch
   - `decisions.md` → only if a real decision surfaced — with a date and a `**Why**:` line (no why → don't log it as a decision)
 - **Don't fabricate.** Write only what the user actually said. Leave a section blank rather than padding it with placeholder-looking content — a half-filled file the user can trust beats a full one they can't.
 - Update the `*Updated:*` timestamp on every file you touch.
 
-### 5. Close the loop — first real briefing
+### 5. Offer clarification, then brief
 
-- Run `/morning` on the freshly seeded data. This is the user's first *real* briefing (not the sample-data demo), built from what they just told you.
-- If `vault_dir` is configured, `/morning` will offer its usual daily-note write — let it.
+- Offer `/clarify` to process the captured inputs interactively. If Titan accepts, complete the decision tree for each entry they want to process; if they decline, leave the raw inbox untouched.
+- Run `/morning` on the existing clarified actions and priorities. Do not turn raw inbox entries into next actions inside the briefing; `/morning` will show unprocessed time-sensitive inputs separately. If a vault is configured, `/morning` may offer its usual daily-note write.
 
 ### 6. Offer to graduate off first-run
 

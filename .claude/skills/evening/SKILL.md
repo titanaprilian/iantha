@@ -1,11 +1,11 @@
 ---
 name: evening
-description: End-of-day wrap-up — archives completed tasks from memory, rolls over recurring obligations, surfaces tomorrow's items, and optionally writes a daily log to the user's Obsidian vault. Use this whenever the user types /evening, says "wrap up the day" / "close out" / "let's call it", finishes a substantive day of work, or wants to commit memory updates before stopping.
+description: End-of-day GTD wrap — confirm and check off completed next actions, elicit the next physical step for touched projects, advance completed routines, and surface tomorrow's commitments. Use for /evening, "wrap up the day", "close out", or a daily planning wrap; optionally write to the configured vault.
 ---
 
 # /evening — Daily Wrap
 
-Archive what got done, plan tomorrow, commit.
+Confirm completions, keep Active projects moving, and surface tomorrow without processing the inbox by default.
 
 ## Instructions
 
@@ -15,21 +15,21 @@ When the user runs `/evening`, do the following:
 
 Read `config.yaml` (and `config.local.yaml` if present, with local overriding). Note whether `vault_dir` is set — controls step 6.
 
-### 2. Identify what got done
+### 2. Confirm completed actions
 
-Walk through what was discussed and worked on this session/day. Ask the user if anything is unclear ("Did X get finished?").
+Read `memory/next-actions.md` and `memory/projects.md`; ask Titan which actions actually finished and what the outcome was. Do not infer completion from a calendar event, elapsed time, or a checked box alone. Ask about unclear items.
 
-### 3. Complete actions and projects
+### 3. Check off actions and keep projects moving
 
-For each item confirmed done:
+For each confirmed completion:
 
-1. Move the completed action from its context in `memory/next-actions.md` to its **Completed** section with the completion date and outcome; keep its ID and context.
-2. If the action belonged to an Active project in `memory/projects.md`, choose and link its next unblocked physical action. If the outcome is done, move the project to **Completed** with the date and outcome instead. If blocked externally, move it to **On Hold** and record `[YYYY-MM-DD] Task (Waiting on: Person/Entity)` in `memory/waiting-for.md`.
-3. Update the `*Updated:*` timestamp in each changed file.
+1. Mark the completed action `[x]` in `memory/next-actions.md`, preserving its ID, context, estimate, and original wording; move it to **Completed** with local completion date and confirmed outcome (`- [x] [YYYY-MM-DD] A## · @context — action [Nm, energy] — outcome`). A project `**Log:**` entry may hold additional detail, but never replace the completed action record with an unverified claim.
+2. For every touched Active project, ask Titan whether the outcome is finished. If yes, move it to **Completed** with completion date and outcome. If not, **prompt Titan for the next physical step** with a concrete verb and observable result, context, duration, and energy; add a new unblocked action and replace the `Next Action ID/Name` link immediately. Do not invent a step or leave an Active project linked to its checked-off action. If progress genuinely depends on someone external, move the project **On Hold** and record a dated waiting-for entry instead.
+3. If Titan cannot choose a next step, ask whether to consciously put the project **On Hold** (record why, and create a waiting-for entry only for an external dependency). Otherwise leave the discussion open and explicitly report the missing action; never pretend a completed action remains pending or claim the Active-project invariant holds. Update the `*Updated:*` header in each changed file.
 
 ### 4. Roll over recurring actions
 
-For each routine completed today in `memory/next-actions.md`, record the completed occurrence in **Completed** with its date and outcome; advance the active routine's "Next due" by its cadence. Don't silently mark a missed occurrence done.
+For each daily routine Titan confirms completed, record that occurrence as `[x]` with the completion date/outcome in **Completed**; leave the reusable routine in its original context and advance "Next due" by one cadence. Never mark a missed occurrence done or advance without confirmation.
 
 ### 5. Note tomorrow's top items
 
@@ -53,7 +53,7 @@ Did any pattern repeat 3+ times this session/week? Did any decision get made tha
 Stage updated memory files, commit, and push:
 
 ```
-evening: YYYY-MM-DD wrap — N tasks archived, M recurring rolled
+evening: YYYY-MM-DD wrap — N actions completed, M recurring advanced
 ```
 
 Push to `origin` so memory stays synced across machines.

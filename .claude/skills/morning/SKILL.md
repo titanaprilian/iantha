@@ -1,11 +1,11 @@
 ---
 name: morning
-description: Daily start-of-day briefing — reads memory, surfaces today's tasks, overdue items, recurring obligations, and personal-life reminders. Use this whenever the user types /morning, asks "what's on my plate today" / "what should I focus on" / "kick off the day", starts a new day's session and hasn't been briefed yet, or wants a daily standup-style rundown of personal life. If a vault is configured, can also write the briefing to today's daily note.
+description: Daily GTD engagement briefing — check the Google Calendar hard landscape, then match unblocked next actions to context, time, energy, and priority. Elicit Titan's own deliverable and obstacle before inserting any focus block. Use for /morning, "what's on my plate today", "what should I focus on", or a daily standup; optionally write the briefing to the configured vault.
 ---
 
 # /morning — Daily Briefing
 
-Read memory, surface what matters today.
+Use the GTD engagement criteria: context, available time, energy, and priority — after respecting calendar commitments. Capture remains separate from clarification and scheduling.
 
 ## Instructions
 
@@ -15,7 +15,7 @@ When the user runs `/morning`, do the following:
 
 Read `config.yaml` (and `config.local.yaml` if it exists, with local overriding).
 Determine the target date (default: today; if user requested tomorrow, e.g. "for tomorrow", use tomorrow's date).
-Note whether `vault_dir` is set — controls step 8 below.
+Note whether `vault_dir` is set — controls the optional vault write below.
 ### 2. Read memory
 
 - `memory/inbox.md` — unprocessed time-bound inputs
@@ -28,131 +28,46 @@ Note whether `vault_dir` is set — controls step 8 below.
 
 If `vault_dir` is set, also read yesterday's daily note (`${vault_dir}/${vault_daily}/YYYY-MM-DD.md`) — specifically look for a `## Wrap` section (carry-over from /evening) or any "tomorrow" / "carrying over" notes. If the file doesn't exist or has no carry-over content, skip silently.
 
-### 3. Identify today's items & calendar events
+### 3. Calendar — the hard landscape
 
-From the GTD lists:
+- Check `gws auth status`. If authenticated, query Google Calendar for the target date via `gws calendar +agenda --today --timezone "<timezone>" --format json` or `gws calendar +agenda --tomorrow --timezone "<timezone>" --format json`. Extract all-day commitments and event start/end, summary, and location; these are fixed, not candidates to replace with discretionary work. For another requested date, use the calendar API's timeMin/timeMax in the user's local timezone rather than pretending `--today` means that date.
+- Calculate actual open windows around fixed commitments, accounting for the remaining day and the user's location. If authentication fails or the calendar query is unavailable, say calendar availability is unverified: give action options, but do not assert that a specific window is free or insert a block until checked. Never silently treat missing calendar data as an empty calendar.
 
-- **Due today / overdue:** dated uncompleted actions and routines in `next-actions.md`; dated waiting-for follow-ups and unprocessed time-bound inputs in `inbox.md`. Preserve the original dates.
-- **Active:** show concrete actions linked from `projects.md`, matched to available contexts, energy, and time; do not present the project outcome as if it were an executable action.
-- **Waiting:** surface blockers separately; never treat them as unblocked next actions.
-- **Recurring due today:** actions whose "Next due" matches today.
+### 4. Match context, time, energy, and priority
 
-From Google Calendar (via `gws`):
-- If `gws` is authenticated, run:
-  - For today: `gws calendar +agenda --today --timezone "<timezone>" --format json`
-  - For tomorrow: `gws calendar +agenda --tomorrow --timezone "<timezone>" --format json`
-- Extract existing events: start time, end time, summary, and location.
-- If `gws` is not authenticated or fails, skip calendar silently without breaking the briefing.
-### 4. Build the briefing with open focus windows
+- Select only uncompleted, unblocked entries from `memory/next-actions.md`; exclude `## Completed` and all `waiting-for.md` items. Check `projects.md` for the linked Active project and `priorities.md` for relative importance; do not present project titles as executable work.
+- **Context:** match `@deep-work` to an uninterrupted study workspace, `@admin` / `@computer-light` to light computer time, `@offline` to in-person/physical opportunities, `@comms` to available communication channels. **Time:** compare estimated `[Nm, energy]` to the real open window, allowing the user's 50-minute focus / 10-minute break rhythm. **Energy:** prefer high-energy `@deep-work` in Titan's morning focus hours; low-energy admin work fits later. **Priority:** among feasible options, favor the current `priorities.md` order without inventing a new deadline.
+- Show dated actions and routines due today or overdue with their original dates; surface dated waiting-for follow-ups and time-sensitive raw inbox entries separately. Do not process inbox items here or promise an unclarified item a slot. If no action meets the constraints, state that instead of fabricating a task.
+- Briefly show the calendar commitments, verified open windows, feasible next-action IDs/context/duration/energy, due items, and blockers. Omit empty sections; do not manufacture locations, appointments, free windows, or implementation intentions.
 
-Synthesize the day:
-1. Identify existing fixed commitments from Google Calendar to spot open windows.
-2. Map open windows to the user's natural energy rhythms from `personal.md` (e.g. post-Subuh workout, morning deep work focus block, afternoon low-energy block).
-3. Present the open windows alongside active priorities and tasks.
+### 5. Elicit the user's implementation intention
 
-Output a short, scannable briefing:
+Follow `memory/feedback.md`: ask Titan which feasible action and window they want, what **concrete deliverable** they will complete, and their **#1 obstacle or distraction risk**. Ask for the physical location and response to that obstacle when not supplied. Do not generate the deliverable, risk, or if-then response with AI. If Titan cannot decide, offer the matching next actions and leave the calendar unchanged.
 
-```
-## Morning Briefing — YYYY-MM-DD
+### 6. Validate and insert the chosen block
 
-### Calendar (Fixed)
-- HH:MM - HH:MM: Existing event summary
+- Only after Titan supplies the deliverable, obstacle, response, and physical location, recheck the chosen window against Google Calendar. Confirm the proposed action, time, location, deliverable, and if-then plan with Titan; insert only after confirmation. No insertion if the calendar is unavailable, the slot conflicts, or the intention is still incomplete.
+- Use `gws calendar +insert --summary "<user's action verb + deliverable>" --start "<YYYY-MM-DDTHH:MM:SS+OFFSET>" --end "<YYYY-MM-DDTHH:MM:SS+OFFSET>" --location "<user's physical workspace and phone-free boundary>" --description "<I will [user behavior] at [time] in [location]; definition of done [user deliverable]; if [user obstacle], I will [user response]>"`. Use the correct local timezone offset from `config.yaml` and verify the command succeeded before confirming the event.
+- Scheduling a focus block does not mark its next action complete; completion requires Titan's confirmation.
 
-### Open Focus Windows
-- **HH:MM - HH:MM** · *[Location]* — [Anchor / Rhythm, e.g. Post-Subuh habit stack]
-- **HH:MM - HH:MM** · *[Location]* — [Deep Work: mapped to Priority #1]
-- **HH:MM - HH:MM** · *[Location]* — [Afternoon: low-friction or secondary task]
-
-### Tasks Due / Active
-- [item 1]
-- [item 2]
-
-### Overdue
-- [item with original due date]
-
-### Watch
-- [priorities or things to keep in mind]
-
-### Reminders
-- [routine rules, e.g. phone in another room during study]
-```
-
-Sections that are empty: omit them entirely. Don't pad.
-
-### 5. Guided Elicitation (Human Internalization)
-
-**Crucial Rule**: Never invent or fabricate the user's implementation intentions with AI. Per cognitive psychology research (Gollwitzer, 1999; Slamecka & Graf Generation Effect), implementation intentions only trigger automated action initiation if the human actively generates their own commitment and visualizes their obstacles.
-
-Prompt the user to internalize the target block:
-> *"You have [Window, e.g. 08:30 - 11:30] open for [Top Priority]. What concrete deliverable will you lock in during this block, and what is your #1 obstacle or distraction risk?"*
-
-### 6. Encode & Insert into Google Calendar
-
-When the user responds with their target deliverable and obstacle (even in raw bullets or informal text):
-1. Scaffold their own words into the structured Implementation Intention format:
-   - `--summary`: Concrete action verb + outcome from user (e.g. `Draft 3 STAR Behavioral Stories`)
-   - `--location`: Physical workspace + boundary cue (e.g. `Study Desk (Phone in another room)`)
-   - `--description`:
-     ```text
-     🎯 Implementation Intention:
-     I will [user's behavior] at [time] at [location].
-
-     ✅ Definition of Done:
-     - [User's deliverable]
-     - [Focus boundary maintained]
-
-     ⚡ If-Then Rule:
-     If [user's obstacle/distraction occurs], I will [write it down on paper and stay in the work block].
-     ```
-2. Run `gws calendar +insert` for the confirmed block.
-3. Confirm the scheduled block to the user.
 ### 7. Surface, don't auto-dispatch task work
 
 This is a planning briefing, not a work execution session. Do not start executing the tasks themselves unless the user asks.
 
-### 8. Offer task updates
+### 8. Offer action updates
 
-If the user reacts to anything in the briefing ("that's done", "move that to tomorrow", "drop that"), update the relevant GTD list and project link; advance a completed recurring action's next due date. Confirm, commit, and push to `origin`.
+If the user confirms an action is done, check it off and record the date/outcome in the project log or Completed archive; elicit and link the next action for any ongoing Active project. Advance a completed recurring action's next due date. Commit changed memory and push to `origin`. Use `/clarify` separately to process inbox entries.
 
 ### 9. Optional vault write (only if `vault_dir` configured)
 
 Offer to write the briefing to `${vault_dir}/${vault_daily}/YYYY-MM-DD.md` via `/obsidian daily-log` with section name `Briefing`. Default to "yes" if the user has confirmed once before; otherwise ask. Skip silently if `vault_dir` is unset.
 
-## Example output
-
-```
-## Morning Briefing — 2026-11-06
-
-### Calendar (Fixed)
-- 21:00 - 22:00: Simak Regular Meeting
-
-### Open Focus Windows
-- 05:30 - 06:30 · Living Room — Post-Subuh habit stack (strength training)
-- 08:30 - 11:30 · Study Desk — Morning Deep Work (Priority #1: Interview prep / Go)
-- 14:00 - 15:30 · Study Desk — Afternoon low-friction block (Graduation checklist / App review)
-
-### Tasks Due / Active
-- [ ] A04 · @admin — Open the university graduation information page and copy its published checklist and clearance deadlines into a note.
-- [ ] A02 · @admin — Open a junior developer job board and save links to three suitable openings.
-- [ ] A03 · @deep-work — Open a note and outline a Go syntax-essentials mini-module with one exercise and a done criterion.
-
-### Watch
-- Break interview prep and Go tasks into concrete, reachable mini-goals
-- December graduation timeline (~1 month remaining)
-
-### Reminders
-- Phone in another room during the 08:30 - 11:30 morning study session
-- Save low-friction tasks for the afternoon
-```
-
-*Prompt: "You have 08:30 - 11:30 open for Interview Prep. What concrete deliverable will you lock in during this block, and what is your #1 distraction risk?"*
 ## Notes
 
-- Use the user's local timezone for "today" (`config.yaml: timezone` overrides system TZ)
-- Keep the briefing under 20 lines unless there's genuinely a lot
-- Don't read all memory files — just what's listed in step 2
-- If `priorities.md` or `personal.md` is empty (fresh repo), skip those sections silently
-- Vault writes are optional — only happen when `vault_dir` is configured
+- Use the user's local timezone (`config.yaml: timezone` overrides system TZ).
+- Keep the briefing short and actionable. When the calendar is unavailable, state the availability limit instead of showing invented open windows.
+- If `priorities.md` or `personal.md` is empty, skip its guidance; do not fill it by inference.
+- Vault writes are optional and only happen when `vault_dir` is configured.
 
 ## Learned from runs
 
