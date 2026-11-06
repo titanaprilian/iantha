@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `.claude/skills/weekly-review/SKILL.md` — 2-step weekly planning: (1) clarify inbox into tasks/projects and collect all project tasks, then (2) timebox the week into Google Calendar via `gws`.
 - `.claude/skills/daily/SKILL.md` — daily focus check-in to pull today's timeboxed calendar schedule and prime workspace boundaries (renamed from `/morning`).
 - `.claude/skills/daily-review/SKILL.md` — daily loop closure to confirm completed blocks, sweep loose thoughts to inbox, and preview tomorrow (renamed from `/evening`).
+- `scripts/archive_completion.py` and monthly `memory/archive/completed/YYYY-MM.md` logs to preserve completion history while keeping `next-actions.md` active-only.
 
 ### Changed
 - Fixed Google Calendar event insertion payloads to use the API's valid `end.dateTime` field.

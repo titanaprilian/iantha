@@ -19,13 +19,23 @@ Review today's timeboxed calendar blocks and `memory/next-actions.md`. Ask Titan
 - Which scheduled actions or focus blocks were completed today?
 - What was the concrete outcome?
 
-For each confirmed completion:
-1. Mark the action `[x]` and move it to `## Completed` in `memory/next-actions.md` with completion date and outcome:
-   `- [x] [YYYY-MM-DD] A## · @context — action [Nm, energy] — outcome`
-2. If the action belonged to an Active project in `memory/projects.md`:
-   - If the whole project is finished, mark it `Completed` with completion date.
-   - If more tasks remain, verify that the next task is staged or capture any new step.
-3. For recurring routines (e.g., Subuh prayer + workout), advance "Next due" to the next day.
+For each confirmed completion, use `scripts/archive_completion.py` so the active list and monthly log stay consistent:
+
+1. Preview the exact record and change:
+   ```bash
+   python3 scripts/archive_completion.py --id A03 --date YYYY-MM-DD --outcome "confirmed outcome"
+   ```
+   For a recurring routine, include `--next-due YYYY-MM-DD` with its next scheduled occurrence.
+2. After confirming the proposed record matches Titan's report, apply it:
+   ```bash
+   python3 scripts/archive_completion.py --id A03 --date YYYY-MM-DD --outcome "confirmed outcome" --apply
+   ```
+3. For a recurring routine, append its occurrence to `memory/archive/completed/YYYY-MM.md`, keep the reusable routine in `memory/next-actions.md`, and update its next due date. One-off actions are removed from the active list after archival.
+4. If a completed action belonged to an Active project in `memory/projects.md`:
+   - Ask whether the project's outcome is finished. If yes, mark it `Completed` with date and confirmed outcome.
+   - If not finished, set `Next Action ID/Name` to the next uncompleted linked action in `memory/next-actions.md`; if no action remains, elicit and add a new concrete next action before ending review.
+
+The script rejects ambiguous IDs, duplicate same-day completion records, missing recurring next-due dates, and attempts to advance one-off tasks. `memory/next-actions.md` is active-only: never retain completed entries or a Completed section there.
 
 ### 3. Sweep loose thoughts into the inbox
 Ask Titan:

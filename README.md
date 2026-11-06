@@ -93,15 +93,15 @@ Iantha's persistent state is in `memory/`. Ambient inputs go verbatim to `inbox.
 | File | Purpose |
 |------|---------|
 | `inbox.md` | Raw inputs awaiting clarification |
-| `projects.md` | Multi-step outcomes, status, linked next action |
-| `next-actions.md` | Physical next actions by context, duration, energy; routines |
+| `next-actions.md` | Active physical next actions by context, duration, energy; recurring routines |
 | `waiting-for.md` | Externally blocked or delegated items |
 | `someday-maybe.md` | Incubating ideas |
 | `reference.md` | Non-actionable knowledge, rules, constraints, and tool reference |
+| `archive/completed/YYYY-MM.md` | Monthly completion history with dates and outcomes |
 | `personal.md` | About you — preferences, routines, people, life context |
 | `MEMORY.md` | Thin index, loaded at session start |
 
-The repo is git-tracked. Commit your memory updates and your context follows you across machines.
+Confirmed completions are removed from the active list and recorded in a monthly archive; recurring routines remain active while each completed occurrence is logged. `/daily-review` uses `scripts/archive_completion.py` to keep both files consistent.
 
 ## Trust & Privacy
 

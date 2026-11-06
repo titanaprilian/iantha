@@ -25,6 +25,7 @@ Your persistent memory lives in this repo. Read these files as needed.
 | `memory/waiting-for.md` | Externally blocked or delegated items |
 | `memory/someday-maybe.md` | Incubating ideas and non-urgent aspirations |
 | `memory/reference.md` | Non-actionable knowledge, rules, constraints, and tool reference |
+| `memory/archive/completed/YYYY-MM.md` | Monthly completion history; see archive README for format |
 | `memory/personal.md` | About the user — preferences, routines, people, life context |
 
 The repo is git-tracked. Commit memory updates so context survives across machines.
@@ -62,7 +63,7 @@ At session start, check `memory/next-actions.md` and `memory/waiting-for.md` for
 ### Rule E: GTD Lifecycle
 - **Inbox → Clarify:** Process each raw entry using `/clarify`: actionable? If not, trash, reference (`memory/reference.md`), or incubate in `memory/someday-maybe.md`. If actionable and under two minutes, invite Titan to do it now; otherwise decide whether it is a project, single next action, or waiting-for. Remove an inbox entry only after its disposition is confirmed and recorded (or the two-minute action is actually done).
 - **Projects → Next actions:** Each Active project in `memory/projects.md` has an outcome and linked unblocked physical actions in `memory/next-actions.md`. During `/weekly-review`, collect all immediate tasks for the project into `next-actions.md` so they can be scheduled across the week's calendar slots.
-- **Next actions → Completion:** Check off confirmed completed actions during `/daily-review`, record their date and outcome in the `next-actions.md` Completed archive; advance recurring routines only after confirmed completion.
+- **Next actions → Completion:** During `/daily-review`, remove confirmed completed one-off actions from `memory/next-actions.md` and append dated records to `memory/archive/completed/YYYY-MM.md`. For recurring routines, archive each confirmed occurrence but retain the reusable routine and advance its next due date. Keep `next-actions.md` active-only; never add a Completed archive section. Advance active project next actions or mark finished projects Completed.
 - Preserve IDs, dates, context, estimated duration, and energy; commit and push each memory update to `origin`.
 
 ## Rules

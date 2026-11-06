@@ -1,6 +1,6 @@
 # Iantha Memory Index
 
-*Updated: 2026-11-06 11:35*
+*Updated: 2026-11-06 18:28*
 
 Iantha reads this at session start. This file is an index — full content lives in the per-topic files below.
 
@@ -14,6 +14,7 @@ Iantha reads this at session start. This file is an index — full content lives
 | `waiting-for.md` | Externally blocked or delegated items, with date and owner |
 | `someday-maybe.md` | Incubating ideas without active commitments |
 | `reference.md` | Non-actionable knowledge, rules, constraints, and tool reference |
+| `archive/completed/README.md` | Completion log format and monthly archive convention |
 | `personal.md` | About the user — preferences, routines, people, life context |
 
 ## Conventions
@@ -23,6 +24,7 @@ Iantha reads this at session start. This file is an index — full content lives
 - GTD invariant: Every active project in `projects.md` must have at least one unblocked action in `next-actions.md`.
 - Use stable action IDs to link projects and actions. Completed actions must be replaced for ongoing projects; move externally blocked outcomes to On Hold until unblocked.
 - Contexts in `next-actions.md`: `@deep-work`, `@admin` / `@computer-light`, `@offline`, and `@comms`; record duration and energy for each action.
+- Completion records go to `archive/completed/YYYY-MM.md`; `next-actions.md` contains active items only.
 - Reference information and operational constraints live in `reference.md`
 - Personal context is silently updated (Rule B); no need to announce small additions
 - Daily logs (if used) live in `memory/daily/YYYY-MM-DD.md` — opt-in, not created by default
