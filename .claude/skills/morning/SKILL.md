@@ -18,7 +18,10 @@ Determine the target date (default: today; if user requested tomorrow, e.g. "for
 Note whether `vault_dir` is set — controls step 8 below.
 ### 2. Read memory
 
-- `memory/tasks.md` — all sections
+- `memory/inbox.md` — unprocessed time-bound inputs
+- `memory/projects.md` — active outcomes and their linked actions
+- `memory/next-actions.md` — unblocked actions, due dates, and routines by context
+- `memory/waiting-for.md` — externally blocked items and follow-up dates
 - `memory/priorities.md` — current top focus
 - `memory/personal.md` — routines and life context (only what's relevant to today)
 - `memory/decisions.md` — recent entries (last 7 days)
@@ -27,12 +30,12 @@ If `vault_dir` is set, also read yesterday's daily note (`${vault_dir}/${vault_d
 
 ### 3. Identify today's items & calendar events
 
-From `tasks.md`:
+From the GTD lists:
 
-- **Due today**: items with today's date
-- **Overdue**: items with a date earlier than today, not archived
-- **Recurring due today**: items in the Recurring section whose "Next due" matches today
-- **Time-sensitive**: anything in Urgent / Time-sensitive section
+- **Due today / overdue:** dated uncompleted actions and routines in `next-actions.md`; dated waiting-for follow-ups and unprocessed time-bound inputs in `inbox.md`. Preserve the original dates.
+- **Active:** show concrete actions linked from `projects.md`, matched to available contexts, energy, and time; do not present the project outcome as if it were an executable action.
+- **Waiting:** surface blockers separately; never treat them as unblocked next actions.
+- **Recurring due today:** actions whose "Next due" matches today.
 
 From Google Calendar (via `gws`):
 - If `gws` is authenticated, run:
@@ -109,7 +112,7 @@ This is a planning briefing, not a work execution session. Do not start executin
 
 ### 8. Offer task updates
 
-If the user reacts to anything in the briefing ("that's done", "move that to tomorrow", "drop that"), update `memory/tasks.md` accordingly. Confirm, commit, and push to `origin`.
+If the user reacts to anything in the briefing ("that's done", "move that to tomorrow", "drop that"), update the relevant GTD list and project link; advance a completed recurring action's next due date. Confirm, commit, and push to `origin`.
 
 ### 9. Optional vault write (only if `vault_dir` configured)
 
@@ -129,9 +132,9 @@ Offer to write the briefing to `${vault_dir}/${vault_daily}/YYYY-MM-DD.md` via `
 - 14:00 - 15:30 · Study Desk — Afternoon low-friction block (Graduation checklist / App review)
 
 ### Tasks Due / Active
-- [ ] Verify university graduation checklist and clearance deadlines
-- [ ] Submit junior developer applications (3-5 target roles)
-- [ ] Break down Go learning into first reachable mini-module
+- [ ] A04 · @admin — Open the university graduation information page and copy its published checklist and clearance deadlines into a note.
+- [ ] A02 · @admin — Open a junior developer job board and save links to three suitable openings.
+- [ ] A03 · @deep-work — Open a note and outline a Go syntax-essentials mini-module with one exercise and a done criterion.
 
 ### Watch
 - Break interview prep and Go tasks into concrete, reachable mini-goals

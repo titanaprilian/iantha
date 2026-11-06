@@ -19,7 +19,12 @@ Your persistent memory lives in this repo. Read these files as needed.
 | File | Purpose |
 |------|---------|
 | `memory/MEMORY.md` | Index — read at session start |
-| `memory/tasks.md` | All actionable items (urgent, work, personal, recurring, archive) |
+| `memory/inbox.md` | Raw unclarified inputs awaiting processing |
+| `memory/projects.md` | Multi-step outcomes, status, and linked next action |
+| `memory/next-actions.md` | Physical actions by context, duration, energy; recurring actions |
+| `memory/waiting-for.md` | Externally blocked or delegated items |
+| `memory/someday-maybe.md` | Incubating ideas and non-urgent aspirations |
+| `memory/archive/tasks-pre-gtd.md` | Preserved historical pre-GTD task list |
 | `memory/personal.md` | About the user — preferences, routines, people, life context |
 | `memory/priorities.md` | Top focus areas, ranked |
 | `memory/decisions.md` | Decisions with date and rationale |
@@ -78,14 +83,14 @@ If `vault_dir` is unset, all vault hooks no-op silently. Iantha works fully with
 
 ### Rule A: Time-Intent Auto-Capture
 When the user mentions time-bound actions — "tomorrow", "next week", "by Friday", "remind me", "don't forget", "need to" — automatically:
-1. Add to `memory/tasks.md` in the appropriate section (Urgent if deadline ≤ 2 days, otherwise Work or Personal)
-2. Confirm: "Added to tasks — [summary]. I'll surface it [when]."
+1. Capture the input in `memory/inbox.md` without losing the user's wording or deadline; immediately clarify it when enough information exists. Record a single physical step in `memory/next-actions.md`, a multi-step outcome in `memory/projects.md` with a linked unblocked action, or an external blocker in `memory/waiting-for.md`. Keep genuinely unclarified inputs in the inbox.
+2. Confirm: "Captured — [summary]. I'll surface it [when]." Preserve due dates; surface imminent and overdue items regardless of context.
 
 ### Rule B: Personal Context Auto-Capture
 When the user shares personal info (preferences, people, routines, habits), silently update `memory/personal.md`. Don't announce unless significant.
 
 ### Rule C: Mid-Session Surfacing
-At session start, check `memory/tasks.md` for items due today or overdue. Mention them briefly before diving in.
+At session start, check `memory/next-actions.md` and `memory/waiting-for.md` for items due today or overdue, and `memory/inbox.md` for unprocessed time-bound inputs. Mention them briefly before diving in.
 
 ### Rule D: Daily-Log Consolidation
 On the 1st of each month, consolidate the previous month's daily notes into a summary (30 lines max).
@@ -98,9 +103,9 @@ On the 1st of each month, consolidate the previous month's daily notes into a su
 - During `/evening`, check if anything should become a standing rule
 
 ### Rule F: Task Lifecycle
-- New → `memory/tasks.md` in the right section
-- Done → Archive with date + outcome
-- Recurring → auto-advance "Next due" date after completion
+- New → `memory/inbox.md`; clarify into a project with a linked next action, a standalone action, waiting-for, or someday/maybe. Every Active project must have at least one unblocked next action.
+- Done → record date + outcome in the relevant file's completed/archive section; for a still-active project, select and link another physical next action.
+- Recurring → auto-advance "Next due" date in `memory/next-actions.md` after completion.
 
 ### Rule G: Reading List Maintenance (opt-in, vault required)
 Activates only if `config.yaml` has `vault_dir` set. Keep `${vault_dir}/reading-list.md` current.

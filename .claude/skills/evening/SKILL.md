@@ -19,24 +19,21 @@ Read `config.yaml` (and `config.local.yaml` if present, with local overriding). 
 
 Walk through what was discussed and worked on this session/day. Ask the user if anything is unclear ("Did X get finished?").
 
-### 3. Archive completed tasks
+### 3. Complete actions and projects
 
-For each task confirmed done:
+For each item confirmed done:
 
-1. Move from its active section (Urgent / Work / Personal) in `memory/tasks.md` to the **Archive** section under the current month header.
-2. Format: `- [x] [YYYY-MM-DD] Task description — outcome`
-3. Update the `*Updated:*` timestamp at the top of the file.
+1. Move the completed action from its context in `memory/next-actions.md` to its **Completed** section with the completion date and outcome; keep its ID and context.
+2. If the action belonged to an Active project in `memory/projects.md`, choose and link its next unblocked physical action. If the outcome is done, move the project to **Completed** with the date and outcome instead. If blocked externally, move it to **On Hold** and record `[YYYY-MM-DD] Task (Waiting on: Person/Entity)` in `memory/waiting-for.md`.
+3. Update the `*Updated:*` timestamp in each changed file.
 
-### 4. Roll over recurring tasks
+### 4. Roll over recurring actions
 
-For each item in the **Recurring** section that was completed today:
-
-1. Auto-advance the "Next due" date based on cadence (daily / weekly / monthly / etc.)
-2. Mark the prior occurrence in the Archive with date
+For each routine completed today in `memory/next-actions.md`, record the completed occurrence in **Completed** with its date and outcome; advance the active routine's "Next due" by its cadence. Don't silently mark a missed occurrence done.
 
 ### 5. Note tomorrow's top items
 
-Look at `memory/tasks.md` for items due tomorrow or carrying over. Surface them briefly to the user. Adjust priorities if the user wants.
+Look at `memory/next-actions.md` for actions and routines due tomorrow or carrying over; check `memory/waiting-for.md` for dated follow-ups and `memory/inbox.md` for unprocessed commitments. Surface them briefly. Adjust priorities if the user wants.
 
 ### 6. Daily log (if `vault_dir` configured)
 

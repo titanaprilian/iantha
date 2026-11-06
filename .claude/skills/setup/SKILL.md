@@ -14,10 +14,10 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
 ### 1. Load config + detect memory state
 
 - Read `config.yaml` (and `config.local.yaml` if present, with local overriding). Note `timezone` (falls back to system TZ) and `user_name`.
-- Inspect the four live memory files — `memory/tasks.md`, `memory/personal.md`, `memory/priorities.md`, `memory/decisions.md`. For each, decide **blank** vs **filled**: a file is blank if it still matches the template (only section headers + parenthetical placeholders, no real content). The `*.md.example` seeds are *not* the live files — never treat sample content as filled state.
+- Inspect the live GTD lists (`memory/inbox.md`, `memory/projects.md`, `memory/next-actions.md`, `memory/waiting-for.md`, `memory/someday-maybe.md`) plus `memory/personal.md`, `memory/priorities.md`, and `memory/decisions.md`. Treat only unprocessed inputs, real outcomes/actions, or real personal information as filled; section headers and guidance alone are blank. The `*.md.example` seeds are *not* live files.
 - This sets the mode:
-  - **First-run** — all four blank → offer the full interview.
-  - **Gap-fill** — some filled, some blank (or a filled file with empty sections) → only interview the gaps; frame it as *"filling in what's still missing,"* not a fresh start.
+- **First-run** — no real entries in any live GTD list, `personal.md`, `priorities.md`, or `decisions.md` → offer the full interview.
+- **Gap-fill** — some real entries exist, but a relevant section is empty → ask only about gaps; frame it as *"filling in what's still missing,"* not a fresh start.
 
 ### 2. Offer — don't force
 
@@ -36,10 +36,10 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
   |---|----------|----------|
   | 1 | Name, role, what you're working on broadly | `personal.md` → About + Life Context |
   | 2 | Your top 3 focus areas right now | `priorities.md` → Top 3 |
-  | 3 | Current tasks + any deadlines | `tasks.md` → Urgent / Work / Personal |
+  | 3 | Current tasks + any deadlines | `inbox.md` (unclarified), `projects.md` (multi-step outcomes), `next-actions.md` (physical actions) |
   | 4 | Routines worth knowing (gym, weekly review, standing commitments) | `personal.md` → Routines |
   | 5 | Key people (family, close colleagues) | `personal.md` → People |
-  | 6 | Anything time-bound coming up (trips, events, renewals) | `tasks.md` + `priorities.md` → Watch |
+  | 6 | Anything time-bound coming up (trips, events, renewals) | `inbox.md` / `next-actions.md` + `priorities.md` → Watch |
   | 7 | How you like things (communication style, scheduling habits) | `personal.md` → Preferences |
   | 8 | Any standing decisions worth recording | `decisions.md` (only if one surfaces) |
 
@@ -48,11 +48,10 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
 
 ### 4. Write answers to the live files in canonical format
 
-- Write to the **live `.md` files only** — never the `*.md.example` seeds, and never copy seed content into live memory.
-- Preserve each file's section structure and the `*Updated: YYYY-MM-DD HH:MM*` timestamp convention (user's local timezone per config). Use the `*.md.example` files as the format reference for what filled content looks like.
+- Write to the **live `.md` files only**, never to historical archives or sample seeds. Preserve each file's section structure and the `*Updated: YYYY-MM-DD HH:MM*` timestamp convention (user's local timezone per config).
 - Routing:
   - `personal.md` → About, Preferences, Routines, People, Life Context
-  - `tasks.md` → Urgent (deadline ≤ 2 days), Work, Personal — honor Rule A's deadline-based placement; add `[P1]`/`[P2]` labels only where the user signaled urgency
+  - GTD lists → Capture raw ambiguous answers in `inbox.md`; write multi-step outcomes to `projects.md` with an unblocked action in `next-actions.md`; single steps go to `next-actions.md` with context, duration, and energy; external blockers go to `waiting-for.md`; genuine future ideas go to `someday-maybe.md`. Preserve deadlines and never invent the user's commitments.
   - `priorities.md` → Top 3, Active, Watch
   - `decisions.md` → only if a real decision surfaced — with a date and a `**Why**:` line (no why → don't log it as a decision)
 - **Don't fabricate.** Write only what the user actually said. Leave a section blank rather than padding it with placeholder-looking content — a half-filled file the user can trust beats a full one they can't.
@@ -88,9 +87,8 @@ Now that real data exists, the first-run scaffolding is dead weight — it loads
 ## Notes
 
 - **Offered, never forced.** A decline is final for the session — the learn-as-you-talk default takes over, no nagging.
-- **Re-runnable.** On partially-filled memory, `/setup` only interviews the empty sections — useful well beyond literal first run, and harmless to re-run.
 - **Skippable throughout.** Every question can be skipped; partial answers are fine. Never block on completeness.
-- **Live files only.** Writes go to `memory/*.md`, never `*.md.example`. Sample content is never copied into live memory.
+- **Live files only.** Write to active GTD lists, not `memory/archive/`.
 - **No fabrication.** Capture only what the user states; leave unanswered sections blank.
 - Use the user's local timezone for any dates written (`config.yaml: timezone` overrides system TZ).
 

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Five GTD memory lists for capture, multi-step projects, context-specific next actions, waiting-for items, and someday/maybe ideas; preserved the original task list byte-for-byte in `memory/archive/tasks-pre-gtd.md`.
+
+### Changed
+
+- Migrated four active outcomes and two daily routines into linked, actionable GTD entries. Updated memory guidance, daily skills, onboarding, and the housekeeping audit to use the new lists.
+
 ## [0.1.1] - 2026-06-23
 
 ### Added

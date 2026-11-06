@@ -80,7 +80,7 @@ These match the sample seeds the repo ships with (`memory/*.md.example`) — you
 
 > **You:** I need to call mom tomorrow at 6pm.
 >
-> **Iantha:** Added to tasks — call Mom, tomorrow 18:00. I'll surface it in tomorrow's `/morning` briefing.
+> **Iantha:** Captured in `memory/next-actions.md` — call Mom tomorrow at 18:00 (`@comms`). I'll surface it in tomorrow's `/morning` briefing.
 
 **Decision logging in passing.** Mention a decision and Iantha writes it to `memory/decisions.md` so it doesn't evaporate:
 
@@ -90,11 +90,16 @@ These match the sample seeds the repo ships with (`memory/*.md.example`) — you
 
 ## Memory
 
-Iantha's persistent state is in `memory/`. The live files start **blank** and fill in as you use it; the `*.md.example` files carry **sample seeds** (same convention as `.env.example`) that power the first `/morning` demo — say *"delete the samples"* once you're running on your own data.
+Iantha's persistent state is in `memory/`. Capture unclarified inputs in `inbox.md`; clarify them into outcomes, physical next actions, external blockers, or ideas to revisit. An active project always has an unblocked next action. The pre-GTD task list is preserved in `archive/tasks-pre-gtd.md`.
 
 | File | Purpose |
 |------|---------|
-| `tasks.md` | All actionable items (urgent / work / personal / recurring / archive) |
+| `inbox.md` | Raw inputs awaiting clarification |
+| `projects.md` | Multi-step outcomes, status, linked next action |
+| `next-actions.md` | Physical next actions by context, duration, energy; routines |
+| `waiting-for.md` | Externally blocked or delegated items |
+| `someday-maybe.md` | Incubating ideas |
+| `archive/tasks-pre-gtd.md` | Historical pre-GTD tasks, not an active list |
 | `personal.md` | About you — preferences, routines, people, life context |
 | `priorities.md` | What you're focused on right now |
 | `decisions.md` | Decisions you've made, with date and rationale |

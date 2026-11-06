@@ -29,7 +29,7 @@ This produces a report covering:
 
 - **Memory drift**: files under `memory/` whose `*Updated:*` header is older than 30 days (excluding `learnings.md` and `feedback.md`, which are intentionally low-churn). Files without an `*Updated:*` header are skipped — they're treated as never-touched templates.
 - **Skills with bloated learned sections**: skills whose `## Learned from runs` section has more than 5 entries. Suggests `/consolidate-learning <skill>`.
-- **Stale tasks**: items in `memory/tasks.md` with a date older than 30 days that haven't been checked off.
+- **Stale tasks**: uncompleted dated actions or routines in `memory/next-actions.md`, waiting-for follow-ups in `memory/waiting-for.md`, and dated unprocessed inputs in `memory/inbox.md` older than 30 days.
 
 Surface the report to the user.
 
@@ -79,7 +79,7 @@ Don't auto-archive. The user owns their tasks and vault.
   - obsidian: 7 entries
 
 ### Tasks with no movement in 30+ days (1)
-  - [ ] [2026-03-12] Renew car registration (date in line: 2026-03-12)
+  - next-actions.md: - [ ] [2026-03-12] Renew car registration (date in line: 2026-03-12)
 
 Total findings: 4
 ```

@@ -6,7 +6,7 @@
 Scans memory/ and .claude/skills/ for drift signals:
 - Memory files with *Updated:* older than --memory-stale-days
 - Skills with "## Learned from runs" sections containing more than --learned-max entries
-- Optionally: stale tasks in tasks.md (sections older than --task-stale-days)
+- Stale dated actions, routines, waiting-for follow-ups, and inbox inputs in the live GTD lists
 
 Output is a human-readable report. Does NOT modify any files.
 
@@ -26,7 +26,7 @@ from pathlib import Path
 UPDATED_RE = re.compile(r"^\*Updated:\s*(\d{4}-\d{2}-\d{2})(?:\s+\d{2}:\d{2})?\s*\*?", re.MULTILINE)
 LEARNED_HEADER_RE = re.compile(r"^##\s*Learned from runs\s*$", re.IGNORECASE | re.MULTILINE)
 LEARNED_ENTRY_RE = re.compile(r"^[-*]\s+\S", re.MULTILINE)
-DATE_BRACKET_RE = re.compile(r"\[(\d{4}-\d{2}-\d{2})\]")
+DATE_BRACKET_RE = re.compile(r"\[(\d{4}-\d{2}-\d{2})\]|Next due: (\d{4}-\d{2}-\d{2})")
 
 # Files under memory/ that are intentionally low-churn — exclude from drift flagging.
 FROZEN_MEMORY = {"learnings.md", "feedback.md"}
@@ -58,7 +58,11 @@ def main() -> int:
     today = datetime.now().date()
     memory_drift = _scan_memory_drift(memory, today, args.memory_stale_days)
     learned_overflow = _scan_learned_sections(skills, args.learned_max)
-    stale_tasks = _scan_stale_tasks(memory / "tasks.md", today, args.task_stale_days)
+    stale_tasks = _scan_stale_tasks(
+        [memory / "next-actions.md", memory / "waiting-for.md", memory / "inbox.md"],
+        today,
+        args.task_stale_days,
+    )
 
     print(f"## Housekeep audit — {today.isoformat()}")
     print()
@@ -121,30 +125,31 @@ def _scan_learned_sections(skills: Path, max_entries: int) -> list[tuple[str, in
 
 
 def _scan_stale_tasks(
-    tasks_md: Path, today: datetime.date, threshold_days: int
+    task_files: list[Path], today: datetime.date, threshold_days: int
 ) -> list[str]:
-    if not tasks_md.exists():
-        return []
-    text = tasks_md.read_text(encoding="utf-8", errors="ignore")
     stale: list[str] = []
     cutoff = today - timedelta(days=threshold_days)
-    for line in text.splitlines():
-        stripped = line.strip()
-        if not stripped.startswith(("- [ ]", "- [x]")):
+    for task_file in task_files:
+        if not task_file.exists():
             continue
-        if "[x]" in stripped:
-            continue  # already done
-        m = DATE_BRACKET_RE.search(stripped)
-        if not m:
-            continue
-        try:
-            d = datetime.strptime(m.group(1), "%Y-%m-%d").date()
-        except ValueError:
-            continue
-        if d < cutoff:
-            stale.append(f"{stripped[:80]}{'...' if len(stripped) > 80 else ''} (date in line: {m.group(1)})")
+        for line in task_file.read_text(encoding="utf-8", errors="ignore").splitlines():
+            stripped = line.strip()
+            if not stripped.startswith("- [") or stripped.startswith("- [x]"):
+                continue
+            m = DATE_BRACKET_RE.search(stripped)
+            if not m:
+                continue
+            date = m.group(1) or m.group(2)
+            try:
+                d = datetime.strptime(date, "%Y-%m-%d").date()
+            except ValueError:
+                continue
+            if d < cutoff:
+                stale.append(
+                    f"{task_file.name}: {stripped[:80]}{'...' if len(stripped) > 80 else ''} "
+                    f"(date in line: {date})"
+                )
     return stale
-
 
 def _autodetect_repo_root() -> Path:
     """Walk up from this script's location until we find memory/ + .claude/."""
