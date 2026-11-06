@@ -45,57 +45,39 @@ Once clarified, remove processed items from `memory/inbox.md` and update `*Updat
 ---
 
 ## STEP 2: Timebox into Calendar
+Take the unblocked tasks from `memory/next-actions.md` and schedule them into Google Calendar for the next 7 days using the deterministic engine `scripts/schedule.py`.
 
-Take the unblocked tasks from `memory/next-actions.md` and schedule them into Google Calendar for the next 7 days.
-
-### 1. Fetch Calendar Hard Landscape
-Check `gws auth status` and query Google Calendar for the coming week:
+### 1. Compute Proposal with Deterministic Engine
+Run `scripts/schedule.py` to generate the mathematically sound, conflict-free proposal:
 ```bash
-gws calendar +agenda --days 7 --timezone "<timezone>" --format json
+python3 scripts/schedule.py --days 7 --dry-run
 ```
-Identify fixed commitments (classes, appointments) and locate the open focus windows across the week.
+This automatically enforces:
+- **Daily Workouts**: 05:30–06:30 (1 hour full block, alternating Strength and Jogging). Color: `10` (Basil Green).
+- **Morning MUST-FILL Window**: 08:30–11:30 (3x 50/10 cycles: 08:30–09:20, 09:30–10:20, 10:30–11:20) for `@deep-work`. Color: `9` (Cobalt Blue).
+- **Afternoon MUST-FILL Window**: 13:00–15:00 (2x 50/10 cycles: 13:00–13:50, 14:00–14:50) for `@admin` and secondary tasks. Color: `1` (Lavender).
+- **Weekend Rules**:
+  - Saturday: Workout (05:30–06:30), Make Yogurt (07:00–08:00, Color `5`), Deep Work (08:30–11:30), Afternoon Buffer.
+  - Sunday: Jogging (05:30–06:30), Durian Orchard (08:00–10:00, Color `5`), Weekly Review & Rest (14:00–15:00). No deep work on Sunday.
+- **Micro-Tasks**: Quick chores (e.g. Chicken Coop at 16:45, Milk run on Friday at 16:30) are cleanly anchored with Color `5` (Banana Yellow).
+- **Idempotency**: All events are tagged with `[iantha-task:ID]` in their description so re-running `/weekly-review` on Friday, Sunday, or any day never duplicates events.
 
-### 2. Propose Timeboxed Schedule
-Match tasks from `memory/next-actions.md` to the user's energy patterns from `memory/personal.md`:
-- **Morning focus hours**: Schedule `@deep-work` tasks in 50-minute blocks (or 50/10 cycles).
-- **Afternoon hours**: Schedule `@admin` and low-friction tasks.
-- **Buffers**: Leave ~20-30% buffer so the week does not collapse if an item overruns.
+### 2. Present Proposal to Titan
+Display the day-by-day markdown proposal output by `scripts/schedule.py`. Show explicit time ranges, task titles, and color categories.
 
-**CRITICAL FORMAT RULE**: Never list cryptic IDs like "A04 · A05" in the proposal table or summary. Titan must be able to read what each task actually is at a glance.
+Ask Titan for approval:
+> *"Does this timebox schedule look good, or would you like to adjust any slots before we write to Google Calendar?"*
 
-Format the proposal day by day with explicit times and full task titles/deliverables:
-
-```markdown
-### 📅 Proposed Weekly Timebox Plan
-
-#### Saturday (YYYY-MM-DD)
-- 05:30 - 06:15 · **R01**: Strength training (chest & legs) [@offline]
-- 07:00 - 07:30 · **R03**: Make yogurt [@offline]
-- 08:00 - 08:50 · **A04** (Golang): Set up Go workspace and write hello-world CLI [@deep-work]
-- 09:00 - 09:50 · **A05** (Golang): Practice structs and slices exercises [@deep-work]
-- 13:00 - 13:30 · **A14** (Admin): Review university graduation checklist [@admin]
-
-#### Sunday (YYYY-MM-DD)
-- 05:30 - 06:15 · **R02**: Jogging session [@offline]
-- 08:00 - 08:50 · **A07** (Interview): Practice LeetCode #206 reverse linked list [@deep-work]
-- 13:00 - 14:00 · **R04**: Check durian orchard [@offline]
-...
-```
-For each proposed focus block, follow `memory/reference.md`:
-- Ask Titan to confirm the slot and deliverable.
-- Insert the event using `gws calendar +insert`:
+### 3. Insert Events to Google Calendar
+Upon Titan's confirmation, execute the script with `--apply`:
 ```bash
-gws calendar +insert \
-  --summary "<action verb + concrete deliverable>" \
-  --start "<YYYY-MM-DDTHH:MM:SS+OFFSET>" \
-  --end "<YYYY-MM-DDTHH:MM:SS+OFFSET>" \
-  --location "<workspace, e.g. Desk (Phone in another room)>" \
-  --description "Task: <Action ID>; Definition of done: <deliverable>"
+python3 scripts/schedule.py --days 7 --apply
 ```
+This inserts all events via `gws` with explicit `colorId`, locations (`Study Desk (Phone in another room)`, etc.), and structured implementation intention descriptions.
 
 ### 4. Wrap & Commit
-Present the complete weekly timeboxed schedule. Commit all updated memory files and push to `origin`:
+Commit touched files and push:
 ```bash
-git commit -m "review: weekly review and timeboxing for week of YYYY-MM-DD"
+git commit -m "review: weekly review and deterministic timeboxing for week of YYYY-MM-DD"
 git push origin main
 ```

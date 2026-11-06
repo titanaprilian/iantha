@@ -36,6 +36,19 @@ Quickly check:
 - `memory/waiting-for.md`: Any follow-ups due today.
 - `memory/inbox.md`: Any raw input explicitly tagged with today's date.
 Mention these in 1–2 bullet points if they exist; omit cleanly if none.
-
 ### 5. Transition to execution
-Present the first upcoming block and prompt Titan to start. Do not negotiate a new schedule unless Titan explicitly requests changes.
+Present the first upcoming block and prompt Titan to start.
+
+---
+
+## Daily Reschedule Mode (`/daily reschedule` or ad-hoc day adjustment)
+
+If Titan mentions unexpected changes, life interventions, or runs `/daily reschedule`:
+1. Inspect remaining open slots for today via `gws calendar +agenda --today`.
+2. Run `scripts/schedule.py` for today only:
+   ```bash
+   python3 scripts/schedule.py --start-date "$(date +%Y-%m-%d)" --days 1 --dry-run
+   ```
+3. Present the adjusted timeline to Titan for approval.
+4. Apply the updated events to Google Calendar with `--apply`.
+5. Confirm the shifted schedule.
