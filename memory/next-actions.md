@@ -1,10 +1,11 @@
 # Next Actions
 
-*Updated: 2026-11-06 14:46*
+*Updated: 2026-11-06 15:23*
 Unblocked, physical actions grouped by context. Brackets show estimated duration and energy, not scheduled appointments. On completion, choose and link the next action for any still-active project.
 
 ## @deep-work
-- [ ] **A04 · P01** — Define the CLI's inputs, output, and error behavior; initialize the Go module and package structure. [50m, medium-energy]
+- [ ] **A04 · P01** — Define the CLI's inputs, output, and error behavior; initialize the Go module and package structure across two 50-minute sessions. [2×50m, medium-energy]
+- [ ] **A24 · standalone** — Complete the Maganghub PT DOT technical test across two 50-minute morning sessions. [2×50m, medium-energy]
 - [ ] **A05 · P01** — Implement sequential URL checking with `net/http`, request timeouts, and wrapped errors. [50m, high-energy]
 - [ ] **A06 · P01** — Add a bounded worker pool with cancellation and predictable result reporting. [50m, high-energy]
 - [ ] **A07 · P01** — Test success, HTTP errors, timeouts, and cancellation with `httptest`; run the race detector. [50m, high-energy]
@@ -31,10 +32,10 @@ Unblocked, physical actions grouped by context. Brackets show estimated duration
 ## @offline
 - [ ] **R01 · Recurring** — Strength train using a Push/Pull/Legs rotation. 3x/week [45m, medium-energy] (Next due: 2026-11-07)
 - [ ] **R02 · Recurring** — Go jogging. 2x/week [20m, medium-energy] (Next due: 2026-11-07)
-- [ ] **A02 · standalone** — Throw the organic trash to the chicken coop. [5m, low-energy]
+- [ ] **R05 · Recurring** — Throw organic trash to the chicken coop at least 3 days per week. [5m, low-energy] (Next due: 2026-11-06)
 - [ ] **R03 · Recurring** — Check the durian orchard every Sunday. Usually about 30m for collecting fruit or pruning; watering can take about 4h of hard physical work. [30m typical; up to 4h, medium-to-high energy] (Next due: 2026-11-08)
-- [ ] **R04 · Recurring** — Make yogurt every Saturday morning. [45m, medium-energy] (Next due: 2026-11-07)
-- [ ] **A03 · standalone** — Buy milk for making yogurt tomorrow. [15m, low-energy]
+- [ ] **R04 · Recurring** — Make yogurt every Saturday morning. [60m, medium-energy] (Next due: 2026-11-07)
+- [ ] **A03 · standalone** — Buy milk for making yogurt today. [15m, low-energy]
 
 ## @comms
 
