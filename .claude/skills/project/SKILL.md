@@ -73,5 +73,9 @@ Once Titan confirms or modifies the tasks:
    git push origin main
    ```
 
-4. Prompt Titan:
-   > *"Logged N tasks for [Project Title] in `next-actions.md`! You can break down another project with `/project`, or schedule them for the week with `/weekly-review`."*
+4. **Prompt Titan**:
+   - Check if any other `Unclarified` projects remain in `memory/projects.md`.
+   - If yes:
+     > *"Logged N tasks for [Project Title] in `memory/next-actions.md`! You still have unclarified projects remaining. Would you like to break down another project with `/project`, or run `/weekly-review` now to timebox your tasks into Google Calendar?"*
+   - If all projects are scoped:
+     > *"Logged N tasks for [Project Title] in `memory/next-actions.md`! All active projects are now scoped. Ready to timebox your week's tasks into Google Calendar with `/weekly-review`?"*
