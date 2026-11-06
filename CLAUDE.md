@@ -35,11 +35,11 @@ In-repo skills (under `.claude/skills/`):
 
 | Skill | When | Purpose |
 |-------|------|---------|
-| `/setup` | first run (or to fill gaps) | Onboarding interview — seed blank memory with your real life, then run /morning on it |
+| `/setup` | first run (or to fill gaps) | Onboarding interview — seed blank memory with your real life, then run /daily on it |
 | `/clarify` | when processing the inbox | Decide each captured input's fate with the GTD decision tree; empty processed entries |
-| `/morning` | start of day | Briefing — match calendar hard landscape to context and energy |
-| `/evening` | end of day | Wrap — confirm completed actions, roll next actions for active projects |
-| `/weekly-review` | weekly | Get Clear, Get Current, Get Creative across all GTD lists and calendar |
+| `/daily` | start of focus | Check-in — pull today's timeboxed calendar schedule and prime workspace boundaries |
+| `/daily-review` | end of day | Review — confirm completed blocks/actions, sweep loose thoughts into inbox |
+| `/weekly-review` | weekly | 2-Step Planning — clarify inbox into tasks/projects, then timebox the week into Google Calendar |
 | `/calendar` | as needed | Google Calendar integration via `gws` (agenda, schedule events) |
 
 ## Behavioral Rules
@@ -60,8 +60,8 @@ At session start, check `memory/next-actions.md` and `memory/waiting-for.md` for
 
 ### Rule E: GTD Lifecycle
 - **Inbox → Clarify:** Process each raw entry using `/clarify`: actionable? If not, trash, reference (`memory/reference.md`), or incubate in `memory/someday-maybe.md`. If actionable and under two minutes, invite Titan to do it now; otherwise decide whether it is a project, single next action, or waiting-for. Remove an inbox entry only after its disposition is confirmed and recorded (or the two-minute action is actually done).
-- **Projects → Next actions:** Each Active project in `memory/projects.md` has an outcome and at least one linked, unblocked physical action in `memory/next-actions.md`. Never leave an Active project without its next action: elicit the step before creating or updating the project; park externally blocked projects On Hold with a dated waiting-for entry.
-- **Next actions → Completion:** Check off confirmed completed actions, record their date and outcome in the project's log or the `next-actions.md` Completed archive, and immediately elicit and link the next physical action for a still-active project; mark the project Completed if its outcome is done. Advance a recurring action's "Next due" only after confirmed completion.
+- **Projects → Next actions:** Each Active project in `memory/projects.md` has an outcome and linked unblocked physical actions in `memory/next-actions.md`. During `/weekly-review`, collect all immediate tasks for the project into `next-actions.md` so they can be scheduled across the week's calendar slots.
+- **Next actions → Completion:** Check off confirmed completed actions during `/daily-review`, record their date and outcome in the `next-actions.md` Completed archive; advance recurring routines only after confirmed completion.
 - Preserve IDs, dates, context, estimated duration, and energy; commit and push each memory update to `origin`.
 
 ## Rules

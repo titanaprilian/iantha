@@ -57,7 +57,7 @@ When the user runs `/setup` (or you offer it and they accept), do the following:
 ### 5. Offer clarification, then brief
 
 - Offer `/clarify` to process the captured inputs interactively. If Titan accepts, complete the decision tree for each entry they want to process; if they decline, leave the raw inbox untouched.
-- Run `/morning` on the existing clarified actions. Do not turn raw inbox entries into next actions inside the briefing; `/morning` will show unprocessed time-sensitive inputs separately.
+- Run `/daily` on the current calendar and actions. Do not turn raw inbox entries into next actions inside the briefing; `/daily` will show unprocessed time-sensitive inputs separately.
 
 ### 6. Offer to graduate off first-run
 

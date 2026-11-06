@@ -1,13 +1,13 @@
 # Reference
 
-*Updated: 2026-11-06 11:20*
+*Updated: 2026-11-06 11:45*
 
 Non-actionable knowledge, confirmed operational approaches, and tool configurations.
 
 ## User Constraints & Rules
 
 ### Implementation Intentions Elicitation
-- **Rule**: In `/morning` and `/calendar`, do not auto-generate implementation intentions with AI. Instead, surface open focus windows and elicit the concrete deliverable, physical location, #1 obstacle/distraction risk, and if-then response directly from Titan.
+- **Rule**: In `/weekly-review`, `/daily`, and `/calendar`, do not auto-generate implementation intentions with AI. Instead, surface open focus windows and elicit the concrete deliverable, physical location, #1 obstacle/distraction risk, and if-then response directly from Titan.
 - **Why**: Cognitive psychology research (Gollwitzer 1999, d=0.65; Slamecka & Graf 1978 Generation Effect) shows intentions only trigger automated cue-response actions when actively formulated and internalized by the human. AI-generated intentions are treated as passive calendar noise.
 - **How to apply**: Scaffold Titan's own words into Google Calendar metadata (`--summary`, `--location`, `--description`).
 

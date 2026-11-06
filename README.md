@@ -40,9 +40,9 @@ cd ~/iantha
 claude
 ```
 
-Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it yours in one sitting, type **`/setup`** — a short, skippable interview that captures your real tasks to the inbox and records priorities, routines, and people. Use `/clarify` to turn those inputs into GTD actions, then `/morning` to review available work against your calendar. Prefer to skip setup? Just start talking; `/setup` is re-runnable later to fill gaps.
+Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it yours in one sitting, type **`/setup`** — a short, skippable interview that captures your real tasks to the inbox and records routines and people. Use `/clarify` to turn those inputs into GTD actions, then `/daily` to view today's timebox. Prefer to skip setup? Just start talking; `/setup` is re-runnable later to fill gaps.
 
-> First setup: use the template, run `claude`, type `/setup`, then `/clarify`. Day to day: `/morning`; weekly: `/weekly-review`.
+> First setup: use the template, run `claude`, type `/setup`, then `/clarify`. Day to day: `/daily` and `/daily-review`; weekly: `/weekly-review`.
 
 ## What's Inside
 
@@ -51,7 +51,7 @@ Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it 
 ├── CLAUDE.md              # Persona, rules, memory map
 ├── README.md              # You're reading it
 ├── config.yaml            # Timezone and user configuration
-├── .claude/skills/        # /setup, /clarify, /morning, /evening, /weekly-review, /calendar
+├── .claude/skills/        # /setup, /clarify, /daily, /daily-review, /weekly-review, /calendar
 └── memory/                # GTD lists, personal context, reference
 ```
 
@@ -61,9 +61,9 @@ Either way, Iantha reads `CLAUDE.md` and `memory/` at session start. To make it 
 |---------|------|--------------|
 | `/setup` | first run (or to fill gaps) | Short onboarding interview — seeds your memory with your real life, then briefs you |
 | `/clarify` | when processing inbox | Decides the fate of each raw input interactively; creates projects and next actions only after clarification |
-| `/morning` | start of day | Respects calendar commitments; matches next actions to context, time, energy, and priority; elicits focus-block intentions |
-| `/weekly-review` | weekly | Gets Clear, Current, and Creative across GTD lists and the calendar |
-| `/evening` | end of day | Checks off confirmed actions, prompts the next physical step for active projects, advances routines |
+| `/daily` | start of focus | Check-in — pulls today's pre-timeboxed schedule from Google Calendar and primes focus boundaries |
+| `/weekly-review` | weekly | 2-Step Planning — clarifies inbox into tasks/projects, then timeboxes the week into Google Calendar |
+| `/daily-review` | end of day | Review — confirms completed blocks/actions, sweeps loose thoughts into inbox |
 | `/calendar` | as needed | Google Calendar integration via `gws` (agenda, schedule events) |
 Plus two more skills installed from [`kiloloop/oacp-skills`](https://oacp.dev/skills/) (see "Shared Skills" below) — `/self-improve`, `/wrap-up`.
 

@@ -11,10 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - Dedicated GTD memory files: `inbox.md`, `projects.md`, `next-actions.md`, `waiting-for.md`, `someday-maybe.md`, and `reference.md`.
 - `.claude/skills/clarify/SKILL.md` — interactive GTD inbox decision tree with the two-minute rule, reference, incubation, project/action linking, and waiting-for routing.
-- `.claude/skills/weekly-review/SKILL.md` — Get Clear, Get Current, Get Creative review across inbox, past/upcoming calendar, project links, waiting-for, and someday/maybe.
+- `.claude/skills/weekly-review/SKILL.md` — 2-step weekly planning: (1) clarify inbox into tasks/projects and collect all project tasks, then (2) timebox the week into Google Calendar via `gws`.
+- `.claude/skills/daily/SKILL.md` — daily focus check-in to pull today's timeboxed calendar schedule and prime workspace boundaries (renamed from `/morning`).
+- `.claude/skills/daily-review/SKILL.md` — daily loop closure to confirm completed blocks, sweep loose thoughts to inbox, and preview tomorrow (renamed from `/evening`).
 
 ### Changed
 
+- Renamed `/morning` to `/daily` and `/evening` to `/daily-review` to align with the timeboxed calendar workflow.
 - Streamlined memory architecture to pure GTD: pruned redundant template files (`priorities.md`, `decisions.md`, `feedback.md`, `learnings.md`) into a single `reference.md` and personal context in `personal.md`.
 - Pruned obsolete non-GTD skills: removed `/obsidian` (replaced by direct Google Calendar integration via `gws`), `/housekeep` (superseded by `/weekly-review`), `/consolidate-learning`, and `/debrief`.
 - `AGENTS.md` / `CLAUDE.md` and `memory/MEMORY.md` updated to enforce clean GTD invariants without vault or static priority overhead.

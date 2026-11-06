@@ -1,30 +1,82 @@
 ---
 name: weekly-review
-description: Complete GTD weekly review — Get Clear (process inbox), Get Current (calendar, waiting-for, projects and actions), Get Creative (someday/maybe). Use for /weekly-review or when Titan asks to review all commitments for the week.
+description: 2-Step Weekly Review — (1) Clarify inbox into single tasks or projects and collect project tasks, then (2) timebox the tasks directly into Google Calendar for the week. Use for /weekly-review, "plan my week", or weekly planning.
 ---
 
-# /weekly-review — Get Clear, Get Current, Get Creative
+# /weekly-review — 2-Step Weekly Planning
 
-A guided review, not automatic task execution. Read `config.yaml` and any `config.local.yaml` override for timezone; use the user's local date. Keep existing deadlines and status unchanged unless Titan confirms a change. Do not claim an empty inbox or a verified calendar when either is unavailable.
+The core weekly cadence. Process the entire inbox into concrete tasks and projects, then distribute those tasks directly into Google Calendar as a timeboxed plan for the coming week.
 
-## 1. Get Clear — collect and process
+## Instructions
 
-- Read `memory/inbox.md` in full. Ask Titan about any loose paper, notes, and other uncaptured commitments; append their words verbatim to the inbox under Rule A before processing.
-- Invoke `/clarify` to decide every inbox entry one by one. Route trash, reference, someday/maybe, under-two-minute actions, projects plus next actions, standalone actions, and waiting-for as that skill specifies. Let Titan do two-minute actions; do not mark them done until confirmed. Pause on unresolved entries instead of deleting them.
-- Re-read the inbox. Report its actual unprocessed count and which decisions are still needed; "inbox empty" only if no captured entries remain.
+When the user runs `/weekly-review`, execute the following two steps in order:
 
-## 2. Get Current — audit all commitments
+---
 
-- **Waiting for:** Read every open entry in `memory/waiting-for.md`. Ask whether it arrived or needs follow-up; for resolved dependencies, remove/close the waiting entry and make the next physical action available in `memory/next-actions.md`. For still-blocked items, preserve the person/entity, handoff/follow-up date, and any deadline; surface overdue follow-ups without pretending they are actionable work.
-- **Calendar, past and coming two weeks:** Check `gws auth status`. If authenticated, use `gws calendar +agenda --days 14 --timezone "<timezone>" --format json` to inspect upcoming commitments across calendars. For the preceding 14 days (including events earlier today), list all calendars with `gws calendar calendarList list --page-all --format json` and for each relevant calendar call `gws calendar events list --params '{"calendarId":"<id>","timeMin":"<local date 14 days ago>T00:00:00<offset>","timeMax":"<local date tomorrow>T00:00:00<offset>","singleEvents":true,"orderBy":"startTime","maxResults":250}' --page-all --format json`; retain correct local offsets at each boundary. Review missed follow-ups and incoming commitments with Titan; capture new ones verbatim to inbox and run `/clarify` on them. If auth, pagination, or a calendar query fails, disclose the gap and do not say the period was reviewed.
-- **Projects:** Read `memory/projects.md` and the uncompleted entries in `memory/next-actions.md`. For each **Active** project, verify its linked `Next Action ID/Name` exists under a context heading, is physically executable, unblocked, and has duration and energy. If missing or completed, elicit and add a new physical next action immediately, then update the project link in the same session. If the project is finished, ask Titan and move it to Completed with the date/outcome; if no action is possible pending an external entity, move it On Hold with a dated waiting-for record. Recheck On Hold projects for new availability. Never leave a project Active without a linked, unblocked next action.
-- **Actions and routines:** Scan each context list for done items, stale or overdue dates, and recurring "Next due" dates. Check off only confirmed completions; archive the date/outcome in the project log or `next-actions.md` Completed section; advance completed routines. Ask Titan what still matters; do not automatically reschedule overdue work or rewrite priorities.
+## STEP 1: Review & Clarify
 
-## 3. Get Creative — incubate and activate intentionally
+Read `memory/inbox.md` and audit existing items. Empty the inbox line by line by determining the nature of each item:
 
-- Skim `memory/someday-maybe.md` with Titan. Ask which ideas to keep, discard (only with confirmation), or activate. For an activated multi-step idea, elicit an outcome and first unblocked physical action with context, duration, and energy; create the Active project and its linked next action together. A single-step idea becomes a next action. Remove from someday/maybe only after its new home is recorded.
-- Recap decisions, missing links, dated follow-ups, inbox remainder, and any unavailable calendar coverage. Update touched files' `*Updated: YYYY-MM-DD HH:MM*` headers in the configured local timezone; commit and push memory changes to `origin`.
+### 1. Actionable Check
+- If **Not actionable**:
+  - Trash (confirm with Titan)
+  - Reference knowledge $\rightarrow$ `memory/reference.md`
+  - Someday/Maybe $\rightarrow$ `memory/someday-maybe.md`
+- If **Under 2 minutes**: Prompt Titan to do it now.
 
-## Learned from runs
+### 2. Single Task vs. Project
+- If **Single Task**:
+  - Assign context (`@deep-work`, `@admin` / `@computer-light`, `@offline`, `@comms`), duration, and energy tag (e.g. `[50m, high-energy]`).
+  - Add to `memory/next-actions.md`.
+- If **Project** (outcome requiring more than one physical step):
+  - Record the project in `memory/projects.md` (`P##`) with title and concrete definition of done.
+  - **Collect all its concrete tasks**: Prompt Titan:
+    > *"What are all the immediate tasks needed to move this project forward this week?"*
+  - Add each collected task into `memory/next-actions.md` linked to the project (`A## · P##`), tagged with context, duration, and energy.
 
-(empty — populated as the skill is used)
+### 3. Waiting For
+- If any task is blocked on someone else, record it in `memory/waiting-for.md` with date and owner.
+
+### 4. Audit Existing Projects
+- Inspect all Active projects in `memory/projects.md`: ensure every active project has at least one unblocked action in `memory/next-actions.md`.
+
+Once clarified, remove processed items from `memory/inbox.md` and update `*Updated:*` timestamps.
+
+---
+
+## STEP 2: Timebox into Calendar
+
+Take the unblocked tasks from `memory/next-actions.md` and schedule them into Google Calendar for the next 7 days.
+
+### 1. Fetch Calendar Hard Landscape
+Check `gws auth status` and query Google Calendar for the coming week:
+```bash
+gws calendar +agenda --days 7 --timezone "<timezone>" --format json
+```
+Identify fixed commitments (classes, appointments) and locate the open focus windows across the week.
+
+### 2. Propose Timeboxed Schedule
+Match tasks from `memory/next-actions.md` to the user's energy patterns from `memory/personal.md`:
+- **Morning focus hours**: Schedule `@deep-work` tasks in 50-minute blocks (or 50/10 cycles).
+- **Afternoon hours**: Schedule `@admin` and low-friction tasks.
+- **Buffers**: Leave ~20-30% buffer so the week does not collapse if an item overruns.
+
+### 3. Elicit Intentions & Insert Events
+For each proposed focus block, follow `memory/reference.md`:
+- Ask Titan to confirm the slot and deliverable.
+- Insert the event using `gws calendar +insert`:
+```bash
+gws calendar +insert \
+  --summary "<action verb + concrete deliverable>" \
+  --start "<YYYY-MM-DDTHH:MM:SS+OFFSET>" \
+  --end "<YYYY-MM-DDTHH:MM:SS+OFFSET>" \
+  --location "<workspace, e.g. Desk (Phone in another room)>" \
+  --description "Task: <Action ID>; Definition of done: <deliverable>"
+```
+
+### 4. Wrap & Commit
+Present the complete weekly timeboxed schedule. Commit all updated memory files and push to `origin`:
+```bash
+git commit -m "review: weekly review and timeboxing for week of YYYY-MM-DD"
+git push origin main
+```
